@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cv-assistant",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-24",
+  "observability": { "enabled": true },
+
+  // Workers AI has no local simulation, so it always calls the real API, even in wrangler dev
+  "ai": { "binding": "AI", "remote": true },
+
+  // the window may only be 10 or 60 seconds
+  "ratelimits": [
+    {
+      "name": "CHAT_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 20, "period": 60 }
+    }
+  ]
+}
