@@ -8,6 +8,9 @@
   [noticeOpen]="noticeOpen()"
   [confirmingClose]="confirmingClose()"
   [ended]="ended()"
+  [booting]="booting()"
+  [choosingLanguage]="choosingLanguage()"
+  [thinking]="thinking()"
   (openAsk)="openAsk()"
   (requestClose)="requestClose()"
   (cancelClose)="cancelClose()"
@@ -15,6 +18,7 @@
   (acceptNotice)="acceptNotice()"
   (restart)="restart()"
   (download)="download()"
+  (pickLanguage)="pickLanguage($event)"
   (draftChange)="onDraftChange($event)"
   (send)="send($event)"
 />

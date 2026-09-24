@@ -57,7 +57,12 @@
       </span>
     </div>
 
-    <div class="ask-messages">
+    <div class="ask-messages" [class.ask-messages--booting]="booting()">
+      @if (booting()) {
+      <div class="ask-boot">
+        <app-image-placeholder caption="" icon="plane" />
+      </div>
+      } @else {
       @for (message of messages(); track message.id) {
       <div
         class="msg"
@@ -66,11 +71,22 @@
         [class.msg--offline]="message.status === 'fallback'"
       >
         @if (message.status === 'streaming' && !message.text) {
-        <span class="msg-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="msg-think">
+          @if (thinking()) {<span class="msg-think-label">{{ thinking() }}</span>}
+          <span class="msg-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+        </span>
         } @else {
         {{ message.text }}@if (message.status === 'streaming') {<span class="msg-cursor" aria-hidden="true"></span>}
         }
       </div>
+      }
+
+      @if (choosingLanguage() && messages().length === 1) {
+      <div class="ask-langs">
+        <button class="ask-lang" type="button" (click)="pickLanguage.emit('en')">{{ content().languageEn }}</button>
+        <button class="ask-lang" type="button" (click)="pickLanguage.emit('fr')">{{ content().languageFr }}</button>
+      </div>
+      }
       }
     </div>
 

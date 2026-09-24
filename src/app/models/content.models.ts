@@ -262,6 +262,11 @@ export interface ContentAsk {
   eyebrow: string;
   title: string;
   greeting: string;
+  languageAsk: string;
+  languageEn: string;
+  languageFr: string;
+  thinkingSearch: string;
+  thinkingCompose: string;
   suggestions: string[];
   placeholder: string;
   send: string;
