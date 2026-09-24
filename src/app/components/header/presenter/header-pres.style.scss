@@ -287,32 +287,45 @@ app-header-pres {
 }
 
 app-header-pres {
+  // sits with the language switch and theme toggle, so the solid white "Hire me"
+  // stays the only call to action in the bar
   .btn-ask {
     display: none;
     align-items: center;
     gap: 8px;
-    padding: 8px 15px;
+    height: 34px;
+    padding: 0 14px 0 5px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: var(--card);
-    color: var(--ink);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: none;
+    color: rgba(255, 255, 255, 0.82);
     font: inherit;
     font-size: 13.5px;
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 
     &:hover {
-      border-color: var(--blue);
-      color: var(--blue);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.07);
     }
   }
 
-  .btn-ask-dot {
-    width: 7px;
-    height: 7px;
+  .btn-ask-mark {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: #3FA45B;
-    box-shadow: 0 0 0 3px rgba(63, 164, 91, 0.18);
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    flex: none;
+  }
+
+  .btn-ask:hover .btn-ask-mark {
+    background: rgba(255, 255, 255, 0.22);
   }
 
   @media (min-width: 1080px) {
@@ -323,18 +336,9 @@ app-header-pres {
 }
 
 app-header-pres {
-  .btn-ask-mark,
   .sidebar-ask-mark .ask-monogram {
     display: grid;
     place-items: center;
-  }
-
-  .btn-ask-mark {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: var(--blue-ink);
   }
 
   .ask-monogram {
