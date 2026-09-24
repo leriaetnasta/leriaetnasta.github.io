@@ -27,8 +27,13 @@
 
     <div class="ask-messages">
       @for (message of messages(); track message.id) {
-      <div class="msg" [class.msg--you]="message.role === ChatRole.Visitor" [class.msg--bot]="message.role === ChatRole.Bot">
-        {{ message.text }}
+      <div
+        class="msg"
+        [class.msg--you]="message.role === ChatRole.Visitor"
+        [class.msg--bot]="message.role === ChatRole.Bot"
+        [class.msg--offline]="message.status === 'fallback'"
+      >
+        {{ message.text }}@if (message.status === 'streaming') {<span class="msg-cursor" aria-hidden="true"></span>}
       </div>
       }
     </div>
@@ -36,7 +41,7 @@
     <div class="ask-footer">
       <div class="suggestions">
         @for (prompt of content().suggestions; track prompt) {
-        <button class="suggestion-btn" type="button" (click)="send.emit(prompt)">{{ prompt }}</button>
+        <button class="suggestion-btn" type="button" [disabled]="busy()" (click)="send.emit(prompt)">{{ prompt }}</button>
         }
       </div>
       <form class="ask-form" (submit)="onSubmit($event)">
@@ -46,8 +51,9 @@
           (input)="onDraftInput($event)"
           [placeholder]="content().placeholder"
           [attr.aria-label]="content().placeholder"
+          [disabled]="busy()"
         />
-        <button class="ask-send" type="submit">{{ content().send }}</button>
+        <button class="ask-send" type="submit" [disabled]="!canSend()">{{ content().send }}</button>
       </form>
     </div>
   </aside>

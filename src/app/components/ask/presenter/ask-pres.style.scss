@@ -149,3 +149,38 @@ app-ask-pres {
     border-radius: 999px;
   }
 }
+
+app-ask-pres {
+  .msg-cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--blue);
+    animation: ask-blink 1s steps(2, start) infinite;
+  }
+
+  .msg--offline {
+    opacity: 0.85;
+  }
+
+  .ask-input:disabled,
+  .ask-send:disabled,
+  .suggestion-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@keyframes ask-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-ask-pres .msg-cursor {
+    animation: none;
+  }
+}
