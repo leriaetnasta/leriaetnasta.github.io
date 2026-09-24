@@ -236,3 +236,129 @@ app-header-pres {
     font-size: 14px;
   }
 }
+
+app-header-pres {
+  .sidebar-ask {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 13px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card-2);
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+
+    &:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+  }
+
+  .sidebar-ask-mark {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--blue-ink);
+    flex: none;
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .sidebar-ask-online {
+    margin-left: auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3FA45B;
+    box-shadow: 0 0 0 3px rgba(63, 164, 91, 0.18);
+  }
+}
+
+app-header-pres {
+  .btn-ask {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+  }
+
+  .btn-ask-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3FA45B;
+    box-shadow: 0 0 0 3px rgba(63, 164, 91, 0.18);
+  }
+
+  @media (min-width: 1080px) {
+    .btn-ask {
+      display: inline-flex;
+    }
+  }
+}
+
+app-header-pres {
+  .btn-ask-mark,
+  .sidebar-ask-mark .ask-monogram {
+    display: grid;
+    place-items: center;
+  }
+
+  .btn-ask-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--blue-ink);
+  }
+
+  .ask-monogram {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .sidebar-ask-mark .ask-monogram {
+    font-size: 12px;
+  }
+}
+
+// below the desktop breakpoint the header has no room for the CTA, and the side
+// nav already carries it, so hiding it keeps the page from scrolling sideways
+@media (max-width: 720px) {
+  app-header-pres {
+    .btn-hire {
+      display: none;
+    }
+
+    .header-inner {
+      gap: 8px;
+    }
+  }
+}

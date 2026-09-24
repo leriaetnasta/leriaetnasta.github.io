@@ -104,3 +104,36 @@ app-itinerary-pres {
     color: var(--ink-2);
   }
 }
+
+// on phones the four stops stack, rather than forcing the page wider than the screen
+@media (max-width: 760px) {
+  app-itinerary-pres {
+    .timeline-card {
+      overflow-x: hidden;
+    }
+
+    .timeline-track {
+      min-width: 0;
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .timeline-line,
+    .timeline-line-fill {
+      display: none;
+    }
+
+    .timeline-stop {
+      padding: 0 0 0 18px;
+      border-left: 2px solid var(--line);
+
+      &:has(.timeline-dot--active) {
+        border-left-color: var(--red);
+      }
+    }
+
+    .timeline-dot {
+      margin-left: -27px;
+    }
+  }
+}

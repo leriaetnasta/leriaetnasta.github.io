@@ -42,13 +42,136 @@ app-ask-pres {
     border-radius: 999px;
   }
 
-  .ask-drawer {
+  .ask-launcher {
+    position: fixed;
+    right: clamp(14px, 3vw, 28px);
+    bottom: clamp(14px, 3vw, 28px);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 11px;
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-2);
+    font-weight: 600;
+    font-size: 14.5px;
+    animation: ask-launcher-glow 3.4s ease-in-out infinite;
+    transition: gap 0.28s ease, padding 0.28s ease, border-color 0.2s ease, transform 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      gap: 10px;
+      padding-right: 20px;
+      border-color: var(--blue);
+      transform: translateY(-2px);
+      animation: none;
+    }
+
+    &:hover .ask-launcher-label,
+    &:focus-visible .ask-launcher-label {
+      max-width: 220px;
+      opacity: 1;
+    }
+  }
+
+  .ask-launcher-label {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.28s ease, opacity 0.2s ease;
+  }
+
+  .ask-launcher-mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--blue-ink);
+    flex: none;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .ask-launcher-online {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #3FA45B;
+    border: 2px solid var(--card);
+  }
+
+  .ask-panel-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+  }
+
+  .ask-panel-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 16, 19, 0.45);
+    pointer-events: auto;
+    opacity: 0;
+  }
+
+  .ask-panel {
+    position: absolute;
+    right: clamp(14px, 3vw, 28px);
+    bottom: clamp(14px, 3vw, 28px);
+    width: min(400px, calc(100vw - 28px));
+    height: min(620px, calc(100vh - 120px));
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    pointer-events: auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow-2);
+    animation: ask-panel-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  // on phones the panel becomes a sheet, and the backdrop is needed to dim the page
+  @media (max-width: 640px) {
+    .ask-launcher {
+      padding: 12px;
+    }
+
+    .ask-launcher-label {
+      display: none;
+    }
+
+    .ask-panel-backdrop {
+      opacity: 1;
+    }
+
+    .ask-panel {
+      animation-name: ask-sheet-in;
+      inset: auto 0 0 0;
+      width: 100%;
+      height: min(88vh, calc(100dvh - 48px));
+      border-radius: 18px 18px 0 0;
+      border-bottom: none;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 
   .ask-header {
-    padding: 22px 24px;
+    padding: 18px 20px;
     border-bottom: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
@@ -70,8 +193,10 @@ app-ask-pres {
 
   .ask-messages {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding: 20px 24px;
+    overscroll-behavior: contain;
+    padding: 18px 20px;
     display: grid;
     gap: 14px;
     align-content: start;
@@ -98,7 +223,7 @@ app-ask-pres {
   }
 
   .ask-footer {
-    padding: 16px 24px 22px;
+    padding: 14px 20px 18px;
     border-top: 1px solid var(--line);
     display: grid;
     gap: 12px;
@@ -131,6 +256,7 @@ app-ask-pres {
   .ask-input {
     flex: 1;
     min-width: 0;
+    font-size: 16px; // keeps iOS Safari from zooming the page on focus
     border: 1px solid var(--line);
     background: var(--card-2);
     color: var(--ink);
@@ -182,5 +308,217 @@ app-ask-pres {
 @media (prefers-reduced-motion: reduce) {
   app-ask-pres .msg-cursor {
     animation: none;
+  }
+}
+
+app-ask-pres {
+  .msg-typing {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    height: 1.2em;
+
+    i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: ask-typing 1.2s ease-in-out infinite;
+
+      &:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+}
+
+@keyframes ask-typing {
+  0%, 60%, 100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes ask-launcher-glow {
+  0%, 100% {
+    box-shadow: var(--shadow-2), 0 0 0 0 rgba(42, 93, 168, 0.32);
+  }
+  50% {
+    box-shadow: var(--shadow-2), 0 0 0 10px rgba(42, 93, 168, 0);
+  }
+}
+
+@keyframes ask-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+
+@keyframes ask-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-ask-pres .ask-launcher,
+  app-ask-pres .ask-panel,
+  app-ask-pres .msg-typing i {
+    animation: none;
+  }
+}
+
+app-ask-pres {
+  .ask-tools {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .ask-tool {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    &:hover {
+      background: var(--card-2);
+      color: var(--ink);
+    }
+  }
+
+  .ask-panel--wide {
+    width: min(640px, calc(100vw - 28px));
+    height: min(760px, calc(100vh - 80px));
+  }
+
+  .ask-ended {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .ask-restart {
+    background: var(--blue);
+    color: var(--blue-ink);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    width: 100%;
+  }
+
+  // the notice and the close confirmation share one sheet, sitting over the panel
+  .ask-sheet {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(14, 16, 19, 0.5);
+    animation: ask-fade-in 0.2s ease both;
+  }
+
+  .ask-sheet-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    display: grid;
+    gap: 12px;
+    box-shadow: var(--shadow-2);
+    animation: ask-panel-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .ask-sheet-title {
+    font-family: Archivo, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .ask-sheet-body {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .ask-sheet-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .ask-sheet-link {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--blue);
+    background: none;
+    padding: 10px 6px;
+  }
+
+  .ask-sheet-primary {
+    background: var(--blue);
+    color: var(--blue-ink);
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 11px 22px;
+    border-radius: 999px;
+  }
+
+  @media (max-width: 640px) {
+    .ask-tool--wide {
+      display: none;
+    }
+
+    .ask-panel--wide {
+      width: 100%;
+      height: min(88vh, calc(100dvh - 48px));
+    }
+  }
+}
+
+@keyframes ask-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-ask-pres .ask-sheet,
+  app-ask-pres .ask-sheet-card {
+    animation: none;
+  }
+}
+
+app-ask-pres {
+  .ask-monogram {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
   }
 }

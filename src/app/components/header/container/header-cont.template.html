@@ -6,8 +6,10 @@
   [theme]="theme()"
   [language]="language()"
   [sidebarOpen]="sidebarOpen()"
+  [askLabel]="askLabel()"
   (menuOpen)="openSidebar()"
   (menuClose)="closeSidebar()"
   (themeToggle)="toggleTheme()"
   (languageChange)="setLanguage($event)"
+  (askOpen)="openAsk()"
 />

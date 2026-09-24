@@ -60,6 +60,11 @@ export class HeaderPresComponent {
   public readonly sidebarOpen = input(false);
 
   /**
+   * label for the assistant entry in the side nav
+   */
+  public readonly askLabel = input('');
+
+  /**
    * emits when the hamburger opens the sidebar
    */
   public readonly menuOpen = output<void>();
@@ -78,6 +83,11 @@ export class HeaderPresComponent {
    * emits the chosen language
    */
   public readonly languageChange = output<Language>();
+
+  /**
+   * emits when the side nav's assistant entry is chosen
+   */
+  public readonly askOpen = output<void>();
 
   /**
    * languages offered by the switch

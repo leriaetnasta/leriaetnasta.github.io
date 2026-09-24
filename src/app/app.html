@@ -1,5 +1,5 @@
 @if (content(); as c) {
-<app-header-cont [brand]="c.brand" [nav]="c.nav" [sidebar]="c.sidebar" [a11y]="c.a11y" />
+<app-header-cont [brand]="c.brand" [nav]="c.nav" [sidebar]="c.sidebar" [a11y]="c.a11y" [askLabel]="c.ask.sidebarLabel" />
 
 <main id="top" class="container">
   <app-hero [content]="c.hero" />

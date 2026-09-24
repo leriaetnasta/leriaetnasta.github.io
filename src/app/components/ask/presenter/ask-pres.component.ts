@@ -5,6 +5,7 @@ import {
   computed,
   input,
   output,
+  signal,
 } from '@angular/core';
 import { ContentA11y, ContentAsk } from '@models/content.models';
 import { ChatMessage, ChatRole } from '@models/ask.models';
@@ -50,14 +51,59 @@ export class AskPresComponent {
   public readonly busy = input(false);
 
   /**
+   * the one-time notice is showing
+   */
+  public readonly noticeOpen = input(false);
+
+  /**
+   * the close confirmation is showing
+   */
+  public readonly confirmingClose = input(false);
+
+  /**
+   * the session timed out
+   */
+  public readonly ended = input(false);
+
+  /**
+   * the panel is in its larger size
+   */
+  public readonly wide = signal(false);
+
+  /**
    * emits when the banner button opens the drawer
    */
   public readonly openAsk = output<void>();
 
   /**
-   * emits when the drawer should close
+   * emits when the panel should close for good
    */
   public readonly closeAsk = output<void>();
+
+  /**
+   * emits when the visitor tries to close, so the container can confirm
+   */
+  public readonly requestClose = output<void>();
+
+  /**
+   * emits when the visitor keeps the conversation instead of closing
+   */
+  public readonly cancelClose = output<void>();
+
+  /**
+   * emits when the notice is acknowledged
+   */
+  public readonly acceptNotice = output<void>();
+
+  /**
+   * emits when a timed-out session should start again
+   */
+  public readonly restart = output<void>();
+
+  /**
+   * emits when the transcript should be saved
+   */
+  public readonly download = output<void>();
 
   /**
    * emits the composer's text as it is typed
@@ -78,6 +124,13 @@ export class AskPresComponent {
    * the composer is worth sending
    */
   public readonly canSend = computed(() => this.draft().trim().length > 0 && !this.busy());
+
+  /**
+   * grow or shrink the panel
+   */
+  public toggleWide(): void {
+    this.wide.update((wide) => !wide);
+  }
 
   /**
    * track the composer as it is typed in
