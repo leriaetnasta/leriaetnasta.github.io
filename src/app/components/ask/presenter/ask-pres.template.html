@@ -13,16 +13,48 @@
   </div>
 </section>
 
+@if (!open()) {
+<button class="ask-launcher" type="button" [attr.aria-label]="content().launcher" (click)="openAsk.emit()">
+  <span class="ask-launcher-mark" aria-hidden="true">
+    <span class="ask-monogram">LT</span>
+    <span class="ask-launcher-online"></span>
+  </span>
+  <span class="ask-launcher-label">{{ content().launcher }}</span>
+</button>
+}
+
 @if (open()) {
-<div class="drawer-overlay">
-  <div class="drawer-backdrop" (click)="closeAsk.emit()"></div>
-  <aside class="drawer ask-drawer">
+<div class="ask-panel-wrap">
+  <div class="ask-panel-backdrop" (click)="requestClose.emit()"></div>
+  <aside class="ask-panel" [class.ask-panel--wide]="wide()" role="dialog" aria-modal="true" [attr.aria-label]="content().title">
     <div class="ask-header">
       <span class="ask-title-group">
         <span class="eyebrow">{{ content().eyebrow }}</span>
         <span class="ask-title">{{ content().title }}</span>
       </span>
-      <button class="drawer-close" type="button" [attr.aria-label]="a11y().close" (click)="closeAsk.emit()">×</button>
+      <span class="ask-tools">
+        <button class="ask-tool" type="button" [attr.aria-label]="content().download" [attr.title]="content().download" (click)="download.emit()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"></path>
+          </svg>
+        </button>
+        <button
+          class="ask-tool ask-tool--wide"
+          type="button"
+          [attr.aria-label]="wide() ? content().collapse : content().expand"
+          [attr.title]="wide() ? content().collapse : content().expand"
+          (click)="toggleWide()"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            @if (wide()) {
+            <path d="M9 4v5H4m11 11v-5h5"></path>
+            } @else {
+            <path d="M15 4h5v5M9 20H4v-5"></path>
+            }
+          </svg>
+        </button>
+        <button class="ask-tool" type="button" [attr.aria-label]="a11y().close" (click)="requestClose.emit()">×</button>
+      </span>
     </div>
 
     <div class="ask-messages">
@@ -33,12 +65,20 @@
         [class.msg--bot]="message.role === ChatRole.Bot"
         [class.msg--offline]="message.status === 'fallback'"
       >
+        @if (message.status === 'streaming' && !message.text) {
+        <span class="msg-typing" aria-hidden="true"><i></i><i></i><i></i></span>
+        } @else {
         {{ message.text }}@if (message.status === 'streaming') {<span class="msg-cursor" aria-hidden="true"></span>}
+        }
       </div>
       }
     </div>
 
     <div class="ask-footer">
+      @if (ended()) {
+      <p class="ask-ended">{{ content().timeoutBody }}</p>
+      <button class="ask-restart" type="button" (click)="restart.emit()">{{ content().restart }}</button>
+      } @else {
       <div class="suggestions">
         @for (prompt of content().suggestions; track prompt) {
         <button class="suggestion-btn" type="button" [disabled]="busy()" (click)="send.emit(prompt)">{{ prompt }}</button>
@@ -55,7 +95,34 @@
         />
         <button class="ask-send" type="submit" [disabled]="!canSend()">{{ content().send }}</button>
       </form>
+      }
     </div>
+
+    @if (noticeOpen()) {
+    <div class="ask-sheet">
+      <div class="ask-sheet-card">
+        <h4 class="ask-sheet-title">{{ content().noticeTitle }}</h4>
+        <p class="ask-sheet-body">{{ content().noticeBody }}</p>
+        <div class="ask-sheet-actions">
+          <a class="ask-sheet-link" href="#contact" (click)="requestClose.emit()">{{ content().noticeContact }}</a>
+          <button class="ask-sheet-primary" type="button" (click)="acceptNotice.emit()">{{ content().noticeAgree }}</button>
+        </div>
+      </div>
+    </div>
+    }
+
+    @if (confirmingClose()) {
+    <div class="ask-sheet">
+      <div class="ask-sheet-card">
+        <h4 class="ask-sheet-title">{{ content().closeTitle }}</h4>
+        <p class="ask-sheet-body">{{ content().closeBody }}</p>
+        <div class="ask-sheet-actions">
+          <button class="ask-sheet-link" type="button" (click)="cancelClose.emit()">{{ content().closeCancel }}</button>
+          <button class="ask-sheet-primary" type="button" (click)="closeAsk.emit()">{{ content().closeConfirm }}</button>
+        </div>
+      </div>
+    </div>
+    }
   </aside>
 </div>
 }

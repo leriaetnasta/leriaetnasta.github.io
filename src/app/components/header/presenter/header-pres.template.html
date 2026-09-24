@@ -28,6 +28,11 @@
       <a href="#contact">{{ nav().contact }}</a>
     </nav>
 
+    <button class="btn-ask" type="button" (click)="askOpen.emit()">
+      <span class="btn-ask-mark" aria-hidden="true"><span class="ask-monogram">LT</span></span>
+      {{ askLabel() }}
+    </button>
+
     <div class="language-switch" role="group" [attr.aria-label]="a11y().switchLanguage">
       @for (code of languages; track code) {
       <button
@@ -70,6 +75,14 @@
         ×
       </button>
     </div>
+    <button class="sidebar-ask" type="button" (click)="askOpen.emit()">
+      <span class="sidebar-ask-mark" aria-hidden="true">
+        <span class="ask-monogram">LT</span>
+      </span>
+      {{ askLabel() }}
+      <span class="sidebar-ask-online" aria-hidden="true"></span>
+    </button>
+
     <nav class="sidebar-nav">
       @for (item of sidebar().items; track item.href) {
       <a class="sidebar-link" [href]="item.href" (click)="menuClose.emit()">

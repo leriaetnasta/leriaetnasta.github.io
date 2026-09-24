@@ -13,3 +13,8 @@ export const ASK_TIMEOUT_MS = 15_000;
  * how many turns of context travel with each question
  */
 export const ASK_MAX_TURNS = 6;
+
+/**
+ * end the session after this much silence, then offer a restart
+ */
+export const ASK_IDLE_MS = 15 * 60 * 1000;

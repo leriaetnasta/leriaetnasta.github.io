@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { PreferencesService } from '@services/preferences.service';
 import { ContentService } from '@services/content.service';
+import { AskUiService } from '@services/ask-ui.service';
 import {
   ContentA11y,
   ContentBrand,
@@ -37,6 +38,11 @@ export class HeaderContComponent {
   private readonly contentService = inject(ContentService);
 
   /**
+   * opens the assistant panel from the side nav
+   */
+  private readonly askUi = inject(AskUiService);
+
+  /**
    * brand mark copy
    */
   public readonly brand = input.required<ContentBrand>();
@@ -50,6 +56,11 @@ export class HeaderContComponent {
    * mobile sidebar copy
    */
   public readonly sidebar = input.required<ContentSidebar>();
+
+  /**
+   * label for the assistant entry in the side nav
+   */
+  public readonly askLabel = input('');
 
   /**
    * accessible label copy
@@ -98,5 +109,13 @@ export class HeaderContComponent {
   public setLanguage(language: Language): void {
     this.preferences.setLanguage(language);
     this.contentService.loadContent(language);
+  }
+
+  /**
+   * open the assistant and close the side nav behind it
+   */
+  public openAsk(): void {
+    this.closeSidebar();
+    this.askUi.openPanel();
   }
 }
