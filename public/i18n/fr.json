@@ -323,6 +323,11 @@
     "eyebrow": "POSEZ-MOI UNE QUESTION",
     "title": "Assistant CV",
     "greeting": "Posez-moi une question sur le parcours de Loubna. Je ne réponds qu'à partir de son CV et de ses articles publiés.",
+    "languageAsk": "Bonjour. Je peux répondre en français ou en anglais.\nHi there. I can answer in French or English.",
+    "languageEn": "English",
+    "languageFr": "Français",
+    "thinkingSearch": "Je parcours son CV",
+    "thinkingCompose": "Je rassemble tout ça",
     "suggestions": [
       "Qu'a-t-elle livré en production ?",
       "Comment travaille-t-elle en équipe ?",

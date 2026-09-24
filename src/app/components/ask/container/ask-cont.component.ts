@@ -14,7 +14,15 @@ import { matchAnswer } from '@utils/ask.util';
 import { AskService } from '@services/ask.service';
 import { AskUiService } from '@services/ask-ui.service';
 import { PreferencesService } from '@services/preferences.service';
-import { ASK_IDLE_MS } from '@constants/ask.constants';
+import { ContentService } from '@services/content.service';
+import { Language } from '@models/preferences.models';
+import {
+  ASK_BOOT_MS,
+  ASK_COMPOSE_MS,
+  ASK_IDLE_MS,
+  ASK_THINK_MS,
+  ASK_TOKEN_MS,
+} from '@constants/ask.constants';
 import { AskPresComponent } from '../presenter/ask-pres.component';
 
 @Component({
@@ -40,6 +48,11 @@ export class AskContComponent {
    * the language the visitor is reading the site in
    */
   private readonly preferences = inject(PreferencesService);
+
+  /**
+   * fetches the chosen locale's copy
+   */
+  private readonly contentService = inject(ContentService);
 
   /**
    * ask section copy
@@ -87,6 +100,26 @@ export class AskContComponent {
   public readonly ended = signal(false);
 
   /**
+   * the opening illustration is showing, before the first message
+   */
+  public readonly booting = signal(false);
+
+  /**
+   * the visitor has not chosen a language for this conversation yet
+   */
+  public readonly choosingLanguage = signal(true);
+
+  /**
+   * what the assistant is doing while the visitor waits
+   */
+  public readonly thinking = signal('');
+
+  /**
+   * greet again as soon as the newly chosen locale's copy arrives
+   */
+  private readonly awaitingLocale = signal(false);
+
+  /**
    * counter behind message ids
    */
   private messageSeq = 0;
@@ -97,6 +130,17 @@ export class AskContComponent {
   private idleTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {
+    // the greeting after a language switch waits for the new locale's copy
+    effect(() => {
+      const greeting = this.content().greeting;
+      untracked(() => {
+        if (this.awaitingLocale()) {
+          this.awaitingLocale.set(false);
+          this.append(ChatRole.Bot, greeting, 'done');
+        }
+      });
+    });
+
     // the header and side nav open the panel without going through openAsk().
     // Only the open flag is tracked: reading messages here would re-run this on
     // every reply and pop the notice back up mid-conversation.
@@ -109,7 +153,7 @@ export class AskContComponent {
         }
         this.noticeOpen.set(true);
         if (!this.messages().length) {
-          this.append(ChatRole.Bot, this.content().greeting, 'done');
+          this.boot();
         }
         this.restartIdleTimer();
       });
@@ -148,6 +192,9 @@ export class AskContComponent {
     clearTimeout(this.idleTimer);
     this.confirmingClose.set(false);
     this.ended.set(false);
+    this.booting.set(false);
+    this.choosingLanguage.set(true);
+    this.thinking.set('');
     this.messages.set([]);
     this.draft.set('');
     this.ui.closePanel();
@@ -167,8 +214,38 @@ export class AskContComponent {
     this.ended.set(false);
     this.messages.set([]);
     this.draft.set('');
-    this.append(ChatRole.Bot, this.content().greeting, 'done');
+    this.choosingLanguage.set(true);
+    this.boot();
     this.restartIdleTimer();
+  }
+
+  /**
+   * answer in the language the visitor picked, and reseed in that language
+   */
+  public pickLanguage(language: Language): void {
+    this.choosingLanguage.set(false);
+    this.messages.set([]);
+
+    if (language === this.preferences.language()) {
+      this.append(ChatRole.Bot, this.content().greeting, 'done');
+      return;
+    }
+
+    // the locale file is being fetched; greet when its copy lands
+    this.awaitingLocale.set(true);
+    this.preferences.setLanguage(language);
+    this.contentService.loadContent(language);
+  }
+
+  /**
+   * hold on the illustration, then open with the bilingual greeting
+   */
+  private boot(): void {
+    this.booting.set(true);
+    setTimeout(() => {
+      this.booting.set(false);
+      this.append(ChatRole.Bot, this.content().languageAsk, 'done');
+    }, ASK_BOOT_MS);
   }
 
   /**
@@ -222,9 +299,24 @@ export class AskContComponent {
     const history = this.messages().filter((message) => message.status !== 'fallback');
     const answerId = this.append(ChatRole.Bot, '', 'streaming');
 
+    const startedAt = Date.now();
+    this.thinking.set(this.content().thinkingSearch);
+    const composing = setTimeout(
+      () => this.thinking.set(this.content().thinkingCompose),
+      ASK_COMPOSE_MS
+    );
+
     try {
+      let first = true;
       for await (const token of this.ask.stream(this.preferences.language(), history)) {
+        if (first) {
+          // the edge answers faster than anyone can read a question being considered
+          await pause(ASK_THINK_MS - (Date.now() - startedAt));
+          this.thinking.set('');
+          first = false;
+        }
         this.appendToken(answerId, token);
+        await pause(ASK_TOKEN_MS);
       }
       this.settle(answerId, 'done');
     } catch {
@@ -235,6 +327,8 @@ export class AskContComponent {
         'fallback'
       );
     } finally {
+      clearTimeout(composing);
+      this.thinking.set('');
       this.busy.set(false);
       this.restartIdleTimer();
     }
@@ -286,4 +380,11 @@ export class AskContComponent {
       messages.map((message) => (message.id === id ? { ...message, status } : message))
     );
   }
+}
+
+/**
+ * resolve after a delay, ignoring non-positive waits
+ */
+function pause(ms: number): Promise<void> {
+  return ms > 0 ? new Promise((resolve) => setTimeout(resolve, ms)) : Promise.resolve();
 }

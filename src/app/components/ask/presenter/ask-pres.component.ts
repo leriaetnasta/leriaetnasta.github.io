@@ -9,11 +9,13 @@ import {
 } from '@angular/core';
 import { ContentA11y, ContentAsk } from '@models/content.models';
 import { ChatMessage, ChatRole } from '@models/ask.models';
+import { Language } from '@models/preferences.models';
+import { ImagePlaceholderComponent } from '@components/shared/image-placeholder/image-placeholder.component';
 
 @Component({
   selector: 'app-ask-pres',
   standalone: true,
-  imports: [],
+  imports: [ImagePlaceholderComponent],
   styleUrls: ['./ask-pres.style.scss'],
   templateUrl: './ask-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,6 +68,21 @@ export class AskPresComponent {
   public readonly ended = input(false);
 
   /**
+   * the opening illustration is showing
+   */
+  public readonly booting = input(false);
+
+  /**
+   * the language buttons are still offered
+   */
+  public readonly choosingLanguage = input(false);
+
+  /**
+   * what the assistant is doing right now
+   */
+  public readonly thinking = input('');
+
+  /**
    * the panel is in its larger size
    */
   public readonly wide = signal(false);
@@ -104,6 +121,11 @@ export class AskPresComponent {
    * emits when the transcript should be saved
    */
   public readonly download = output<void>();
+
+  /**
+   * emits the language the visitor picked
+   */
+  public readonly pickLanguage = output<Language>();
 
   /**
    * emits the composer's text as it is typed
