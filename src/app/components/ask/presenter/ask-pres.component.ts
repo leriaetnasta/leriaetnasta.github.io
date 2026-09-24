@@ -45,6 +45,11 @@ export class AskPresComponent {
   public readonly draft = input('');
 
   /**
+   * an answer is still streaming in
+   */
+  public readonly busy = input(false);
+
+  /**
    * emits when the banner button opens the drawer
    */
   public readonly openAsk = output<void>();
@@ -72,7 +77,7 @@ export class AskPresComponent {
   /**
    * the composer is worth sending
    */
-  public readonly canSend = computed(() => this.draft().trim().length > 0);
+  public readonly canSend = computed(() => this.draft().trim().length > 0 && !this.busy());
 
   /**
    * track the composer as it is typed in
