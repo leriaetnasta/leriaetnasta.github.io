@@ -1,0 +1,16 @@
+{
+  "name": "cv-assistant",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "knowledge": "node ../scripts/build-knowledge.mjs src/knowledge.json",
+    "dev": "npm run knowledge && wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260924.1",
+    "typescript": "~5.9.2",
+    "wrangler": "^4.138.0"
+  }
+}
