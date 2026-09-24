@@ -1,0 +1,34 @@
+<section id="projects" class="section">
+  <div class="section-head">
+    <h2 class="section-title">{{ content().title }}</h2>
+    <span class="section-meta">{{ content().meta }}</span>
+  </div>
+
+  <div class="projects-grid">
+    @for (item of content().items; track item.code) {
+    <article class="card project-card">
+      <div class="project-head">
+        <div>
+          <div class="eyebrow">{{ item.eyebrow }}</div>
+          <h3 class="project-title">{{ item.title }}</h3>
+        </div>
+        <span class="project-code">{{ item.code }}</span>
+      </div>
+      <div class="ticket-divider"></div>
+      <div class="project-body">
+        <p class="project-desc">{{ item.desc }}</p>
+        <div class="tag-row">
+          @for (tag of item.tags; track tag) {
+          <span class="chip-outline">{{ tag }}</span>
+          }
+        </div>
+        <div class="project-links">
+          @for (link of item.links; track link.href) {
+          <a [href]="link.href" target="_blank" rel="noopener" class="project-link">{{ link.label }}</a>
+          }
+        </div>
+      </div>
+    </article>
+    }
+  </div>
+</section>

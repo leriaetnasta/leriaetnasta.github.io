@@ -1,0 +1,17 @@
+@if (content(); as c) {
+<app-header-cont [brand]="c.brand" [nav]="c.nav" [sidebar]="c.sidebar" [a11y]="c.a11y" />
+
+<main id="top" class="container">
+  <app-hero [content]="c.hero" />
+  <app-itinerary-cont [content]="c.itinerary" [a11y]="c.a11y" />
+  <app-work [content]="c.work" />
+  <app-projects [content]="c.projects" />
+  <app-writing [content]="c.writing" />
+  <app-teaching [content]="c.teaching" />
+  <app-ask-cont [content]="c.ask" [a11y]="c.a11y" />
+  <app-certs [content]="c.certs" />
+  <app-contact [content]="c.contact" />
+</main>
+
+<app-footer [content]="c.footer" />
+}

@@ -1,0 +1,238 @@
+@use 'mixins' as *;
+
+app-header-pres {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bar);
+    color: var(--bar-ink);
+  }
+
+  .header-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 32px);
+    height: 66px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mobile-menu-btn {
+    display: grid;
+    gap: 4.5px;
+    padding: 8px 6px;
+
+    .bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--bar-ink);
+    }
+  }
+
+  @media (min-width: 860px) {
+    .mobile-menu-btn {
+      display: none;
+    }
+  }
+
+  .logo {
+    font-family: Archivo, sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.04em;
+    color: var(--bar-ink);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .logo-dot {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  .tagline {
+    display: none;
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.45);
+    padding-left: 4px;
+    white-space: nowrap;
+    @include mono-label;
+  }
+
+  @media (min-width: 1080px) {
+    .tagline {
+      display: inline;
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .desktop-nav {
+    display: none;
+    align-items: center;
+    gap: clamp(12px, 1.6vw, 22px);
+    font-size: 13.5px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    a {
+      color: rgba(255, 255, 255, 0.82);
+    }
+  }
+
+  @media (min-width: 860px) {
+    .desktop-nav {
+      display: flex;
+    }
+  }
+
+  .language-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    flex-shrink: 0;
+  }
+
+  .language-option {
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.6);
+
+    &.is-active {
+      background: #fff;
+      color: #0B0C0E;
+    }
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .btn-hire {
+    background: #fff;
+    color: #0B0C0E;
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+  }
+
+  .overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 8, 11, 0.55);
+    animation: lt-fade-in 0.18s ease;
+  }
+
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 272px;
+    background: #0B0C0E;
+    color: #fff;
+    padding: 22px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: lt-side-in 0.22s ease;
+  }
+
+  .sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px 18px;
+  }
+
+  .sidebar-brand {
+    font-family: Archivo, sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.04em;
+  }
+
+  .sidebar-close {
+    font-size: 20px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 10px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 500;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+  }
+
+  .sidebar-glyph {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.1);
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    color: var(--red);
+    @include mono-label;
+  }
+
+  .sidebar-cta {
+    margin-top: auto;
+    background: #fff;
+    color: #0B0C0E;
+    text-align: center;
+    font-weight: 600;
+    padding: 13px;
+    border-radius: 999px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx ng test --watch=false
+
+      # only <user>.github.io is served from the domain root; every other repo, including
+      # something like other.name.github.io, is served from /<repo>/
+      - name: Build
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          OWNER_SITE="$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]').github.io"
+          if [[ "$(echo "$REPO" | tr '[:upper:]' '[:lower:]')" == "$OWNER_SITE" ]]; then
+            BASE_HREF="/"
+          else
+            BASE_HREF="/$REPO/"
+          fi
+          echo "base href: $BASE_HREF"
+          npx ng build --base-href "$BASE_HREF"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/loubna-portfolio/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

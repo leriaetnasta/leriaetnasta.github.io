@@ -1,0 +1,157 @@
+@use 'mixins' as *;
+
+/**
+ * cross-section primitives: card surfaces, chips, buttons, section headers
+ * and the slide-over drawer shell. Encapsulation is off on every component
+ * (matching the rest of the app), so these live once, globally, instead of
+ * being redefined in each component's stylesheet.
+ */
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 32px);
+}
+
+.section {
+  margin-top: 74px;
+  scroll-margin-top: 90px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 700;
+}
+
+.section-meta {
+  font-size: 11px;
+  color: var(--muted);
+  @include mono-label;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  font-size: 10.5px;
+  color: var(--muted);
+  @include mono-label;
+
+  &.eyebrow--red {
+    color: var(--red);
+  }
+}
+
+.chip {
+  font-size: 10px;
+  background: var(--tint);
+  color: var(--blue);
+  padding: 6px 10px;
+  border-radius: 6px;
+  @include mono-label;
+}
+
+.chip-outline {
+  font-size: 10px;
+  background: var(--card-2);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  padding: 5px 9px;
+  border-radius: 6px;
+  @include mono-label;
+}
+
+.chip-row,
+.tag-row {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 11px 18px;
+  border-radius: 999px;
+}
+
+.btn-outline {
+  border: 1.5px solid var(--line);
+  background: var(--card-2);
+  color: var(--ink);
+
+  &:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: var(--blue-ink);
+  font-size: 14.5px;
+  padding: 13px 30px;
+  box-shadow: 0 8px 20px -10px var(--blue);
+
+  &:hover {
+    color: var(--blue-ink);
+  }
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 8, 11, 0.5);
+  animation: lt-fade-in 0.18s ease;
+}
+
+.drawer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(430px, 100%);
+  background: var(--card);
+  box-shadow: var(--shadow-2);
+  @include slide-in-right;
+}
+
+.drawer--scroll {
+  padding: 26px;
+  overflow-y: auto;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.drawer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.drawer-close {
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted);
+}

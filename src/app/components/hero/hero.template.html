@@ -1,0 +1,29 @@
+<section class="hero">
+  <div class="hero-media">
+    <app-image-placeholder [caption]="content().imageCaption" [warm]="true" />
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <div class="hero-intro">
+      <span class="hero-badge">{{ content().badge }}</span>
+      <h1 class="hero-title">{{ content().title }}</h1>
+    </div>
+
+    <div class="card hero-card">
+      <p class="hero-lede">{{ content().lede }}</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-outline">{{ content().ctaHireDev }}</a>
+        <a href="#teaching" class="btn btn-outline">{{ content().ctaTutor }}</a>
+        <a href="#writing" class="btn btn-outline">{{ content().ctaBlog }}</a>
+        <div class="hero-spacer"></div>
+        <a href="#contact" class="btn btn-primary">{{ content().ctaTalk }}</a>
+      </div>
+      <div class="hero-stats">
+        @for (stat of content().stats; track stat) {
+        <span>{{ stat }}</span>
+        }
+      </div>
+    </div>
+  </div>
+</section>

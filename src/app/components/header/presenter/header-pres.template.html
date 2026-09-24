@@ -1,0 +1,84 @@
+<header class="site-header">
+  <div class="header-inner">
+    <button
+      class="mobile-menu-btn"
+      type="button"
+      [attr.aria-label]="a11y().openMenu"
+      (click)="menuOpen.emit()"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <a href="#top" class="logo">
+      <span class="logo-dot"></span>{{ brand().name }}
+    </a>
+
+    <span class="tagline">{{ brand().tagline }}</span>
+
+    <div class="spacer"></div>
+
+    <nav class="desktop-nav">
+      <a href="#itinerary">{{ nav().itinerary }}</a>
+      <a href="#work">{{ nav().work }}</a>
+      <a href="#projects">{{ nav().projects }}</a>
+      <a href="#writing">{{ nav().writing }}</a>
+      <a href="#teaching">{{ nav().teaching }}</a>
+      <a href="#contact">{{ nav().contact }}</a>
+    </nav>
+
+    <div class="language-switch" role="group" [attr.aria-label]="a11y().switchLanguage">
+      @for (code of languages; track code) {
+      <button
+        type="button"
+        class="language-option"
+        [class.is-active]="language() === code"
+        [attr.aria-pressed]="language() === code"
+        (click)="languageChange.emit(code)"
+      >
+        {{ code.toUpperCase() }}
+      </button>
+      }
+    </div>
+
+    <button
+      class="theme-toggle"
+      type="button"
+      [attr.aria-label]="a11y().toggleTheme"
+      (click)="themeToggle.emit()"
+    >
+      {{ themeIcon() }}
+    </button>
+
+    <a href="#contact" class="btn-hire">{{ nav().hire }}</a>
+  </div>
+</header>
+
+@if (sidebarOpen()) {
+<div class="overlay">
+  <div class="overlay-backdrop" (click)="menuClose.emit()"></div>
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <span class="sidebar-brand">{{ brand().name }}</span>
+      <button
+        class="sidebar-close"
+        type="button"
+        [attr.aria-label]="a11y().closeMenu"
+        (click)="menuClose.emit()"
+      >
+        ×
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      @for (item of sidebar().items; track item.href) {
+      <a class="sidebar-link" [href]="item.href" (click)="menuClose.emit()">
+        <span class="sidebar-glyph">{{ item.glyph }}</span>
+        {{ item.label }}
+      </a>
+      }
+    </nav>
+    <a href="#contact" class="sidebar-cta" (click)="menuClose.emit()">{{ sidebar().cta }}</a>
+  </aside>
+</div>
+}

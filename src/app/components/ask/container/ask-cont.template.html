@@ -1,0 +1,11 @@
+<app-ask-pres
+  [content]="content()"
+  [a11y]="a11y()"
+  [open]="open()"
+  [messages]="messages()"
+  [draft]="draft()"
+  (openAsk)="openAsk()"
+  (closeAsk)="closeAsk()"
+  (draftChange)="onDraftChange($event)"
+  (send)="send($event)"
+/>

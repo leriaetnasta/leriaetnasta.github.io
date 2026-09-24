@@ -1,0 +1,28 @@
+app-certs {
+  .certs-grid {
+    margin-top: 22px;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+
+  .cert-card {
+    border-radius: 16px;
+    padding: 22px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .cert-name {
+    font-family: Archivo, sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .cert-org {
+    font-size: 13px;
+    color: var(--muted);
+  }
+}

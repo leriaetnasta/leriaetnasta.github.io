@@ -1,0 +1,24 @@
+<section id="work" class="section">
+  <div class="section-head">
+    <h2 class="section-title">{{ content().title }}</h2>
+    <span class="section-meta">{{ content().meta }}</span>
+  </div>
+
+  @for (item of content().items; track item.title) {
+  <article class="card work-card">
+    <div class="work-media">
+      <app-image-placeholder [caption]="item.imageCaption" [icon]="item.icon" />
+    </div>
+    <div class="work-body">
+      <div class="chip-row">
+        @for (tag of item.tags; track tag) {
+        <span class="chip">{{ tag }}</span>
+        }
+      </div>
+      <h3 class="work-title">{{ item.title }}</h3>
+      <p class="work-desc">{{ item.desc }}</p>
+      <a href="#contact" class="work-link">{{ item.linkLabel }}</a>
+    </div>
+  </article>
+  }
+</section>

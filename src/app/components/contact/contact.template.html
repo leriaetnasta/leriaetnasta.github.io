@@ -1,0 +1,26 @@
+<section id="contact" class="section">
+  <div class="card contact-card">
+    <div class="contact-left">
+      <span class="eyebrow">{{ content().eyebrow }}</span>
+      <h2 class="contact-title">{{ content().title }}</h2>
+      <p class="contact-desc">{{ content().desc }}</p>
+      <a [href]="content().ctaHref" class="contact-cta">{{ content().cta }}</a>
+    </div>
+    <div class="contact-links">
+      @for (link of content().links; track link.label) {
+      <a
+        [href]="link.href"
+        class="contact-link"
+        [target]="link.href.startsWith('mailto:') ? null : '_blank'"
+        [rel]="link.href.startsWith('mailto:') ? null : 'noopener'"
+      >
+        <span class="contact-link-group">
+          <span class="contact-link-label">{{ link.label }}</span>
+          <span class="contact-link-value">{{ link.value }}</span>
+        </span>
+        <span class="contact-arrow">&gt;</span>
+      </a>
+      }
+    </div>
+  </div>
+</section>

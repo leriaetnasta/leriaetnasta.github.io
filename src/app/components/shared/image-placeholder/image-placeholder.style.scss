@@ -1,0 +1,337 @@
+@use 'mixins' as *;
+
+app-image-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  .image-placeholder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--card-2), var(--tint));
+
+    &.is-warm {
+      background: linear-gradient(120deg, #E8B27A, #C4683A 55%, #241A12);
+    }
+  }
+
+  .image-placeholder-caption {
+    max-width: 70%;
+    text-align: center;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    @include mono-label;
+  }
+
+  .image-placeholder.is-warm .image-placeholder-caption {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .image-placeholder-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .scene-grid-line {
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  .scene-faint {
+    stroke: var(--muted);
+    stroke-opacity: 0.3;
+    stroke-width: 1;
+  }
+
+  .scene-label {
+    @include mono-label;
+    font-size: 10px;
+    fill: var(--muted);
+    stroke: none;
+  }
+
+  .scene-label-sm {
+    font-size: 8.5px;
+  }
+
+  .scene-label-strong {
+    font-size: 13px;
+    font-weight: 600;
+    fill: var(--ink-2);
+  }
+
+  .scene-label-accent {
+    fill: var(--red);
+  }
+
+  .scene-route {
+    stroke: var(--blue);
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-opacity: 0.75;
+    animation: scene-dash 2.4s linear infinite;
+  }
+
+  .scene-route-thin {
+    stroke-width: 1.5;
+    stroke-dasharray: 3 7;
+    stroke-opacity: 0.5;
+    animation-duration: 1.6s;
+  }
+
+  .scene-node {
+    fill: var(--card);
+    stroke: var(--blue);
+    stroke-width: 2.5;
+  }
+
+  .scene-node-core,
+  .scene-plane,
+  .scene-bolt,
+  .scene-needle-north {
+    fill: var(--blue);
+    stroke: none;
+  }
+
+  .scene-waypoint {
+    fill: var(--card);
+    stroke: var(--blue);
+    stroke-width: 1.5;
+  }
+
+  .scene-arrival {
+    fill: var(--red);
+    stroke: none;
+  }
+
+  .scene-pulse {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 1.5;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: scene-pulse 2.4s ease-out infinite;
+  }
+
+  .scene-fly {
+    offset-rotate: auto;
+    offset-anchor: 0 0;
+    offset-distance: 62%;
+    animation: scene-fly 16s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  .scene-cursor,
+  .scene-packet {
+    offset-rotate: 0deg;
+    offset-anchor: 0 0;
+    offset-distance: 70%;
+  }
+
+  .scene-cursor {
+    animation: scene-travel 7s ease-in-out infinite alternate;
+  }
+
+  .scene-packet {
+    animation: scene-packet 4.8s linear infinite;
+  }
+
+  .scene-dial {
+    fill: var(--card);
+    fill-opacity: 0.7;
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  .scene-ticks {
+    fill: none;
+    stroke: var(--muted);
+    stroke-opacity: 0.5;
+    stroke-width: 5;
+    stroke-linecap: butt;
+  }
+
+  .scene-tick-major {
+    stroke: var(--blue);
+    stroke-width: 2;
+  }
+
+  .scene-needle {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: scene-needle 7s ease-in-out infinite;
+  }
+
+  .scene-needle-south {
+    fill: var(--muted);
+    fill-opacity: 0.45;
+    stroke: none;
+  }
+
+  .scene-needle-side {
+    fill: var(--muted);
+    fill-opacity: 0.25;
+    stroke: none;
+  }
+
+  .scene-card,
+  .scene-hub {
+    fill: var(--card);
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  .scene-hub {
+    stroke: var(--blue);
+    stroke-width: 2;
+  }
+
+  .scene-divider {
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  .scene-bar-faint {
+    fill: var(--muted);
+    fill-opacity: 0.22;
+  }
+
+  .scene-bar-strong {
+    fill: var(--ink-2);
+    fill-opacity: 0.75;
+  }
+
+  .scene-bar-blue {
+    fill: var(--blue);
+  }
+
+  .scene-line {
+    stroke: var(--blue);
+    stroke-width: 2.5;
+  }
+
+  .scene-arc-track {
+    stroke: var(--muted);
+    stroke-opacity: 0.2;
+    stroke-width: 8;
+  }
+
+  .scene-arc {
+    stroke: var(--blue);
+    stroke-width: 8;
+  }
+
+  .scene-icon {
+    stroke: var(--blue);
+    stroke-width: 2;
+  }
+
+  .scene-rotor {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: scene-spin 8s linear infinite;
+  }
+
+  .scene-bezel {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: scene-spin 60s linear infinite;
+  }
+
+  .scene-chevron {
+    stroke: var(--blue);
+    stroke-width: 1.5;
+    stroke-opacity: 0.7;
+  }
+}
+
+@keyframes scene-dash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes scene-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+@keyframes scene-fly {
+  0% {
+    offset-distance: 3%;
+    opacity: 0;
+  }
+  8%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 97%;
+    opacity: 0;
+  }
+}
+
+@keyframes scene-travel {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes scene-packet {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes scene-needle {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes scene-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-image-placeholder .image-placeholder-scene * {
+    animation: none !important;
+  }
+}

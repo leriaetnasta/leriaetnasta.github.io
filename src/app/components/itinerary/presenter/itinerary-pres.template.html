@@ -1,0 +1,44 @@
+<section id="itinerary" class="section">
+  <div class="section-head">
+    <h2 class="section-title">{{ content().title }}</h2>
+    <span class="section-meta">{{ content().meta }}</span>
+  </div>
+
+  <div class="card timeline-card">
+    <div class="timeline-track">
+      <div class="timeline-line"></div>
+      <div class="timeline-line-fill"></div>
+
+      @for (stop of content().stops; track stop.org; let i = $index) {
+      <button class="timeline-stop" type="button" (click)="open.emit(i)">
+        <span class="eyebrow" [class.eyebrow--red]="stop.active">{{ stop.previewEyebrow }}</span>
+        <span class="timeline-year">{{ stop.year }}</span>
+        <span class="timeline-dot" [class.timeline-dot--active]="stop.active"></span>
+        <span class="timeline-org">{{ stop.org }}</span>
+        <span class="timeline-sub">{{ stop.roleShort }}<br />{{ stop.dateShort }}</span>
+      </button>
+      }
+    </div>
+  </div>
+</section>
+
+@if (openStop(); as stop) {
+<div class="drawer-overlay">
+  <div class="drawer-backdrop" (click)="close.emit()"></div>
+  <aside class="drawer drawer--scroll">
+    <div class="drawer-top">
+      <span class="eyebrow">{{ stop.drawerKind }}</span>
+      <button class="drawer-close" type="button" [attr.aria-label]="a11y().close" (click)="close.emit()">×</button>
+    </div>
+    <div class="stop-year">{{ stop.year }}</div>
+    <h3 class="stop-org">{{ stop.org }}</h3>
+    <div class="stop-sub">{{ stop.role }} · {{ stop.place }}</div>
+    <p class="stop-body">{{ stop.body }}</p>
+    <div class="tag-row">
+      @for (tag of stop.tags; track tag) {
+      <span class="chip">{{ tag }}</span>
+      }
+    </div>
+  </aside>
+</div>
+}

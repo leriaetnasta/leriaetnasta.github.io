@@ -1,0 +1,26 @@
+@use 'motion' as *;
+
+/*
+ * MONO LABEL
+ * the small uppercase, letter-spaced eyebrow/tag typography used throughout
+ */
+@mixin mono-label {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.12em;
+}
+
+/*
+ * SINGLE LINE TRUNCATION
+ */
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+ * PANEL SLIDE-IN, for drawers entering from the right
+ */
+@mixin slide-in-right {
+  animation: lt-slide-in $duration-base $ease-out;
+}

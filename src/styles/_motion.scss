@@ -1,0 +1,6 @@
+/**
+ * shared transition timings, referenced the same way across components
+ */
+$duration-fast: 0.15s;
+$duration-base: 0.22s;
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);

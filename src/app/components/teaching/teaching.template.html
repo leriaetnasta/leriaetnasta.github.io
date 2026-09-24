@@ -1,0 +1,36 @@
+<section id="teaching" class="section">
+  <h2 class="section-title">{{ content().title }}</h2>
+
+  <div class="teaching-grid">
+    <div class="card teaching-card">
+      <span class="eyebrow">{{ content().lessonsEyebrow }}</span>
+      <div class="lesson-list">
+        @for (lesson of content().lessons; track lesson.name) {
+        <div class="lesson-row">
+          <span class="lesson-name">{{ lesson.name }}</span>
+          <span class="lesson-level">{{ lesson.level }}</span>
+        </div>
+        }
+      </div>
+      <a href="#contact" class="teaching-cta">{{ content().cta }}</a>
+    </div>
+
+    <div class="card teaching-card">
+      <span class="eyebrow">{{ content().languagesEyebrow }}</span>
+      <div class="lang-chip-row">
+        @for (language of content().languages; track language) {
+        <span class="lang-chip">{{ language }}</span>
+        }
+      </div>
+      <p class="teaching-note">{{ content().note }}</p>
+      <div class="stats-row">
+        @for (stat of content().stats; track stat.label) {
+        <div>
+          <div class="stat-num">{{ stat.num }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

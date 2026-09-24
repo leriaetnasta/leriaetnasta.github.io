@@ -1,0 +1,47 @@
+<section id="writing" class="section">
+  <div class="section-head">
+    <h2 class="section-title">{{ content().title }}</h2>
+    <span class="section-meta">{{ content().meta }}</span>
+  </div>
+
+  <div class="card writing-card">
+    <div class="writing-head">
+      <span>{{ content().columnArticle }}</span>
+      <span>{{ content().columnRead }}</span>
+      <span>{{ content().columnDate }}</span>
+    </div>
+
+    @for (item of content().items; track item.href) {
+    <a [href]="item.href" target="_blank" rel="noopener" class="writing-row">
+      <span class="writing-title-group">
+        <span class="writing-title">{{ item.title }}</span>
+        <span class="article-tags">
+          @for (tag of item.tags; track tag) {
+          <span class="article-tag">{{ tag }}</span>
+          }
+        </span>
+      </span>
+      <span class="writing-meta">{{ item.read }}</span>
+      <span class="writing-meta writing-meta--right">{{ item.date }}</span>
+    </a>
+    }
+
+    <div class="writing-footer">
+      <a [href]="content().allPostsHref" target="_blank" rel="noopener">{{ content().allPostsLabel }}</a>
+    </div>
+  </div>
+
+  <div class="darija-banner">
+    <div class="darija-copy">
+      <span class="eyebrow eyebrow--red">{{ content().darija.eyebrow }}</span>
+      <h3 class="darija-title">{{ content().darija.title }}</h3>
+      <p class="darija-desc">{{ content().darija.desc }}</p>
+    </div>
+    <div class="darija-tags">
+      @for (tag of content().darija.tags; track tag) {
+      <span class="darija-tag">{{ tag }}</span>
+      }
+      <a [href]="content().darija.href" target="_blank" rel="noopener" class="darija-cta">{{ content().darija.cta }}</a>
+    </div>
+  </div>
+</section>

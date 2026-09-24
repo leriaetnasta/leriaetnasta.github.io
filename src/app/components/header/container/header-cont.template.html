@@ -1,0 +1,13 @@
+<app-header-pres
+  [brand]="brand()"
+  [nav]="nav()"
+  [sidebar]="sidebar()"
+  [a11y]="a11y()"
+  [theme]="theme()"
+  [language]="language()"
+  [sidebarOpen]="sidebarOpen()"
+  (menuOpen)="openSidebar()"
+  (menuClose)="closeSidebar()"
+  (themeToggle)="toggleTheme()"
+  (languageChange)="setLanguage($event)"
+/>

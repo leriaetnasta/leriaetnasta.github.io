@@ -1,0 +1,106 @@
+app-itinerary-pres {
+  .timeline-card {
+    margin-top: 22px;
+    padding: clamp(18px, 2.4vw, 34px);
+    overflow-x: auto;
+  }
+
+  .timeline-track {
+    min-width: 680px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 74px;
+    height: 1.5px;
+    background: var(--line);
+  }
+
+  .timeline-line-fill {
+    position: absolute;
+    left: 6%;
+    width: 64%;
+    top: 74px;
+    height: 1.5px;
+    background: var(--blue);
+  }
+
+  .timeline-stop {
+    text-align: left;
+    padding: 0 12px 0 0;
+    display: grid;
+    gap: 8px;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &:hover {
+      opacity: 0.72;
+    }
+  }
+
+  .timeline-year {
+    font-family: Archivo, sans-serif;
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+  }
+
+  .timeline-dot {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 3.5px solid var(--blue);
+
+    &.timeline-dot--active {
+      background: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 0 0 5px var(--tint);
+    }
+  }
+
+  .timeline-org {
+    font-family: Archivo, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+
+  .timeline-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .stop-year {
+    font-family: Archivo, sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+  }
+
+  .stop-org {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .stop-sub {
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  .stop-body {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+}

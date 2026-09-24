@@ -1,0 +1,82 @@
+app-contact {
+  .contact-card {
+    box-shadow: var(--shadow-2);
+    padding: clamp(24px, 3.4vw, 46px);
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
+
+  .contact-left {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+
+  .contact-title {
+    font-size: clamp(28px, 3.8vw, 44px);
+    font-weight: 800;
+  }
+
+  .contact-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 420px;
+  }
+
+  .contact-cta {
+    justify-self: start;
+    margin-top: 6px;
+    background: var(--blue);
+    color: var(--blue-ink);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 999px;
+  }
+
+  .contact-links {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    color: var(--ink);
+
+    &:hover {
+      border-color: var(--blue);
+      color: var(--ink);
+    }
+  }
+
+  .contact-link-group {
+    display: grid;
+    gap: 3px;
+  }
+
+  .contact-link-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+
+  .contact-link-value {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .contact-arrow {
+    color: var(--blue);
+    font-weight: 600;
+  }
+}

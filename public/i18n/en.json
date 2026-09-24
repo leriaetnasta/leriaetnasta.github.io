@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "htmlLang": "en",
+    "pageTitle": "Loubna Talha · Software Engineer",
+    "pageDescription": "Software engineer at IBM. Portfolio, case studies, writing and teaching."
+  },
+  "a11y": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle dark mode",
+    "close": "Close",
+    "switchLanguage": "Switch language"
+  },
+  "brand": { "name": "LOUBNA TALHA", "tagline": "CMN · CASABLANCA" },
+  "nav": {
+    "itinerary": "Itinerary",
+    "work": "Work",
+    "projects": "Projects",
+    "writing": "Writing",
+    "teaching": "Teaching",
+    "contact": "Contact",
+    "hire": "Hire me"
+  },
+  "sidebar": {
+    "items": [
+      { "href": "#itinerary", "label": "Itinerary", "glyph": "01" },
+      { "href": "#work", "label": "Work", "glyph": "02" },
+      { "href": "#projects", "label": "Projects", "glyph": "03" },
+      { "href": "#writing", "label": "Writing", "glyph": "04" },
+      { "href": "#teaching", "label": "Teaching", "glyph": "05" },
+      { "href": "#contact", "label": "Contact", "glyph": "06" }
+    ],
+    "cta": "Hire me"
+  },
+  "hero": {
+    "badge": "AVAILABLE FOR CONTRACT WORK · REMOTE GMT+1",
+    "title": "Where can I take your product?",
+    "lede": "Software engineer at IBM. I ship production web apps and the services behind them, and I teach people how they work.",
+    "ctaHireDev": "Hire a developer",
+    "ctaTutor": "Book a tutor",
+    "ctaBlog": "Read my blog",
+    "ctaTalk": "Let's talk",
+    "stats": ["3 YRS AT IBM", "ANGULAR 14 → 21", "SOLE MAINTAINER, 8+ PROD APPS", "20+ PUBLISHED ARTICLES"],
+    "imageCaption": "Drop a golden-hour photo: Moroccan coast or Atlas mountains"
+  },
+  "itinerary": {
+    "title": "Career itinerary",
+    "meta": "4 STOPS · 2018 → PRESENT · TAP A STOP",
+    "stops": [
+      {
+        "previewEyebrow": "ORIGIN",
+        "year": "2018",
+        "org": "EMSI",
+        "roleShort": "Engineering degree",
+        "dateShort": "2018–2023",
+        "active": false,
+        "drawerKind": "ORIGIN · 2018",
+        "role": "Engineering degree",
+        "place": "Casablanca",
+        "body": "Five years of computer engineering at EMSI, finished in 2023. Algorithms, databases, networks, plus the habit of shipping a working project every semester instead of a slide deck.",
+        "tags": ["ALGORITHMS", "DATABASES", "NETWORKS"]
+      },
+      {
+        "previewEyebrow": "STOP 1",
+        "year": "2021",
+        "org": "A6NEGOCE",
+        "roleShort": "Web dev intern",
+        "dateShort": "Django e-commerce",
+        "active": false,
+        "drawerKind": "STOP 1 · 2021",
+        "role": "Web development intern",
+        "place": "Casablanca",
+        "body": "Built an e-commerce site in Django: catalogue, cart, orders, admin. It was the first time my code had to deal with real users and real edge cases.",
+        "tags": ["DJANGO", "PYTHON", "E-COMMERCE"]
+      },
+      {
+        "previewEyebrow": "STOP 2",
+        "year": "2022",
+        "org": "EXPERTISE DATA",
+        "roleShort": "Software intern",
+        "dateShort": "Spring + Angular finance app",
+        "active": false,
+        "drawerKind": "STOP 2 · 2022",
+        "role": "Software engineering intern",
+        "place": "Casablanca",
+        "body": "A finance application on Spring Boot with an Angular front end. Learned how a typed API contract keeps two teams from arguing.",
+        "tags": ["SPRING BOOT", "ANGULAR", "REST"]
+      },
+      {
+        "previewEyebrow": "ARRIVAL · NOW",
+        "year": "2023",
+        "org": "IBM",
+        "roleShort": "Application Developer",
+        "dateShort": "2023–present",
+        "active": true,
+        "drawerKind": "ARRIVAL · 2023 → NOW",
+        "role": "Application Developer",
+        "place": "Casablanca",
+        "body": "Software engineer on enterprise products. I build the services behind them and the apps on top, and I maintain several of them in production. I design and document the features I ship, review code, pair with the team, mentor juniors, and run client demos.",
+        "tags": ["NODE.JS", "FASTAPI", "PYTHON", "AWS", "ANGULAR", "CI/CD"]
+      }
+    ]
+  },
+  "work": {
+    "title": "Selected work",
+    "meta": "CLIENT NAMES WITHHELD UNDER NDA",
+    "items": [
+      {
+        "tags": ["ANGULAR", "NGRX", "GRAPHQL", "AWS AMPLIFY", "AWS LAMBDA"],
+        "title": "Airline & travel web apps",
+        "desc": "Sole maintainer of multiple production Angular apps, carried from v14 to v18. Booking flows, deep linking, interactive maps, real-time status tracking, and a multilingual UI that switches language at runtime. State in NgRx/RxJS; data over GraphQL and REST via AWS Amplify.",
+        "linkLabel": "See details >",
+        "imageCaption": "abstract airline booking-flow mockup, boarding-pass motif",
+        "icon": "plane"
+      },
+      {
+        "tags": ["ANGULAR", "REAL-TIME", "DATA VIZ"],
+        "title": "Operations center dashboard",
+        "desc": "A real-time decision-support hub for a US utilities company. It pulls operational KPIs from several systems into one screen operators can read at a glance during an incident.",
+        "linkLabel": "See details >",
+        "imageCaption": "abstract utilities control-room dashboard mockup",
+        "icon": "gauge"
+      },
+      {
+        "tags": ["NODEJS", "FASTAPI","AWS LAMBDA", "COGNITO", "ANGULAR 21"],
+        "title": "Energy Data Hub",
+        "desc": "A data platform for utilities. Teams get their own workspaces, build data flows on a drag-and-drop canvas, and follow them on live metrics dashboards. Grid models are converted to the CIM standard and processed on AWS with Lambda, Step Functions and Kafka, behind role-based access in Cognito.",
+        "linkLabel": "See details >",
+        "imageCaption": "abstract energy data hub mockup: turbines, solar, power grid",
+        "icon": "energy"
+      }
+    ]
+  },
+  "projects": {
+    "title": "Side projects",
+    "meta": "OPEN SOURCE",
+    "items": [
+      {
+        "eyebrow": "MICROSERVICES",
+        "title": "My Mini Souq",
+        "code": "LT-SOUQ-01",
+        "desc": "A shop split into services: discovery, gateway, and typed service-to-service calls. I built it to work through the microservices pattern end to end, it isn't a real store.",
+        "tags": ["SPRING BOOT", "SPRING CLOUD", "EUREKA", "OPENFEIGN", "JPA"],
+        "links": [
+          { "label": "View on GitHub >", "href": "https://github.com/leriaetnasta/my-mini-souq-micro-services" }
+        ]
+      },
+      {
+        "eyebrow": "LLM",
+        "title": "OpenAI Q&A API",
+        "code": "LT-QNA-02",
+        "desc": "A Java service that sends a question to an LLM, stores the answer, and hands it back over a clean REST endpoint.",
+        "tags": ["JAVA", "SPRING", "REST"],
+        "links": [
+          { "label": "View on GitHub >", "href": "https://github.com/leriaetnasta/OpenAI-Question-Answering-API" }
+        ]
+      },
+      {
+        "eyebrow": "SECURITY",
+        "title": "JWT Spring Security",
+        "code": "LT-AUTH-03",
+        "desc": "A token-based auth setup, built the way I wish tutorials explained it: one filter chain you can actually follow.",
+        "tags": ["SPRING SECURITY", "JWT"],
+        "links": [
+          { "label": "View on GitHub >", "href": "https://github.com/leriaetnasta/JWT-Spring-Security" }
+        ]
+      },
+      {
+        "eyebrow": "DATA VISUALISATION",
+        "title": "Rojesty",
+        "code": "LT-ROJE-04",
+        "desc": "A decision-support dashboard for project managers: import the numbers, get the charts that answer \"are we late?\".",
+        "tags": ["DJANGO", "PANDAS", "MATPLOTLIB"],
+        "links": [
+          { "label": "View on GitHub >", "href": "https://github.com/leriaetnasta/Rojesty" }
+        ]
+      },
+      {
+        "eyebrow": "WEB APP",
+        "title": "Expense Tracker",
+        "code": "LT-DEPN-05",
+        "desc": "An expense tracker split in two: an Angular front end for entering and reviewing spending, and a JEE back end holding the accounts and totals.",
+        "tags": ["ANGULAR", "JEE", "JAVA"],
+        "links": [
+          { "label": "Angular client >", "href": "https://github.com/leriaetnasta/Angular-Gestion-Depense" },
+          { "label": "JEE backend >", "href": "https://github.com/leriaetnasta/Gestion-Depense-Server-Side" }
+        ]
+      },
+      {
+        "eyebrow": "WEB APP",
+        "title": "EBanking",
+        "code": "LT-BANK-06",
+        "desc": "An online banking app: an Angular client talking to a Spring Boot microservices backend for accounts, operations, and balances.",
+        "tags": ["ANGULAR", "SPRING BOOT", "MICROSERVICES"],
+        "links": [
+          { "label": "Angular client >", "href": "https://github.com/leriaetnasta/EBanking-Client-Side" },
+          { "label": "Spring backend >", "href": "https://github.com/leriaetnasta/EBanking-Micro-Service-Spring-Boot" }
+        ]
+      }
+    ]
+  },
+  "writing": {
+    "title": "Writing",
+    "meta": "PUBLIC ARTICLES FROM DEV.TO",
+    "columnArticle": "ARTICLE",
+    "columnRead": "READ",
+    "columnDate": "DATE",
+    "items": [
+      {
+        "title": "Understanding the Agentic AI Ecosystem: Prompts, Memory, RAG, MCP, and Tool-Using LLMs",
+        "tags": ["AI", "RAG", "MCP"],
+        "read": "11 min",
+        "date": "MAR 2026",
+        "href": "https://dev.to/leriaetnasta/understanding-the-agentic-ai-ecosystem-prompts-memory-rag-mcp-and-tool-using-llms-36n8"
+      },
+      {
+        "title": "Part 1: Complete Microservices Architecture with Spring Boot, Spring Cloud, Eureka, Gateway and OpenFeign",
+        "tags": ["SPRING", "MICROSERVICES"],
+        "read": "8 min",
+        "date": "SERIES",
+        "href": "https://dev.to/leriaetnasta/complete-microservices-architecture-with-spring-boot-spring-cloud-eureka-gateway-and-openfeign-5a2m"
+      },
+      {
+        "title": "Part 2: Fault Tolerance and Security with Resilience4j and Keycloak",
+        "tags": ["RESILIENCE4J", "KEYCLOAK"],
+        "read": "18 min",
+        "date": "SERIES",
+        "href": "https://dev.to/leriaetnasta/part-2-complete-microservices-architecture-fault-tolerance-and-security-5c4e"
+      },
+      {
+        "title": "A Step by Step Guide to Building Lightning Fast APIs with FastAPI",
+        "tags": ["PYTHON", "FASTAPI"],
+        "read": "8 min",
+        "date": "·",
+        "href": "https://dev.to/leriaetnasta/unleash-the-power-of-fastapi-a-step-by-step-guide-to-building-lightning-fast-apis-3e8h"
+      },
+      {
+        "title": "SOAP Web Service with JAX-WS",
+        "tags": ["JAVA", "SOAP"],
+        "read": "6 min",
+        "date": "·",
+        "href": "https://dev.to/leriaetnasta/soap-web-service-with-jax-ws-lji"
+      },
+      {
+        "title": "How to Pass Multiple Data Types from Angular to Spring REST",
+        "tags": ["ANGULAR", "SPRING"],
+        "read": "7 min",
+        "date": "·",
+        "href": "https://dev.to/leriaetnasta/how-to-pass-multiple-data-types-from-angular-to-spring-restful-web-services-2822"
+      },
+      {
+        "title": "Build Your Own ChatGPT AI Spring Application",
+        "tags": ["SPRING AI"],
+        "read": "9 min",
+        "date": "·",
+        "href": "https://dev.to/leriaetnasta/build-your-own-chatgpt-ai-spring-application-5a31"
+      },
+      {
+        "title": "Command Line Fundamentals: A Quick Reminder",
+        "tags": ["CLI"],
+        "read": "5 min",
+        "date": "·",
+        "href": "https://dev.to/leriaetnasta/command-line-fundamentals-a-quick-reminder-15jg"
+      }
+    ],
+    "allPostsLabel": "All posts on dev.to >",
+    "allPostsHref": "https://dev.to/leriaetnasta",
+    "darija": {
+      "eyebrow": "MINI-SERIES · IN DARIJA",
+      "title": "Java explained in Darija",
+      "desc": "Lambdas, Comparator, Predicate, Consumer, inner classes: explained in the language my students actually think in, because a few of them pick up Java faster in Darija than in English.",
+      "tags": ["LAMBDAS", "COMPARATOR", "PREDICATE", "CONSUMER", "INNER CLASSES"],
+      "cta": "Read the series >",
+      "href": "https://dev.to/leriaetnasta"
+    }
+  },
+  "teaching": {
+    "title": "I also teach",
+    "lessonsEyebrow": "LESSONS / 1-ON-1",
+    "lessons": [
+      { "name": "Reading code you didn't write", "level": "beginner → mid" },
+      { "name": "Java & Spring", "level": "fundamentals → microservices" },
+      { "name": "Angular", "level": "components → NgRx" },
+      { "name": "Python", "level": "basics → APIs" },
+      { "name": "Interview prep", "level": "mock rounds" }
+    ],
+    "cta": "Book a trial lesson",
+    "languagesEyebrow": "LANGUAGES",
+    "languages": ["Arabic: native", "English: TOEFL 91", "French: C1"],
+    "note": "At IBM I mentor juniors and run client demos. Explaining a system out loud is half my job, and it is the same thing I do in a lesson.",
+    "stats": [
+      { "num": "5", "label": "interns mentored" },
+      { "num": "GMT+1", "label": "overlaps EU & US East" },
+      { "num": "24h", "label": "reply time" }
+    ]
+  },
+  "ask": {
+    "bannerEyebrow": "ASK ABOUT ME",
+    "bannerTitle": "Questions before you write a brief?",
+    "bannerDesc": "Ask the assistant. It answers only from my CV and published posts, nothing invented.",
+    "openBtn": "Open the assistant",
+    "eyebrow": "ASK ABOUT ME",
+    "title": "CV assistant",
+    "greeting": "Ask me anything about Loubna's experience. I answer only from her CV and published posts.",
+    "suggestions": ["What Angular versions has she upgraded?", "Can she teach beginners?", "What's her availability?"],
+    "placeholder": "Ask about her experience…",
+    "send": "Send",
+    "fallback": "That isn't in her CV or posts, so I won't guess. Send her the question directly. She replies within a day.",
+    "answers": [
+      {
+        "keywords": ["angular", "version", "upgrade", "v14", "v18"],
+        "text": "She maintains production Angular apps at IBM and has carried them from v14 through v18, including the migration work that comes with each major version: standalone components, new control flow, and dependency churn."
+      },
+      {
+        "keywords": ["teach", "beginner", "tutor", "lesson", "student", "darija"],
+        "text": "Yes. She teaches code reading, Java/Spring, Angular, Python and interview prep 1-on-1, mentors interns at IBM, and publishes a \"Java explained in Darija\" series aimed at beginners."
+      },
+      {
+        "keywords": ["available", "availability", "start", "hours", "timezone", "time zone"],
+        "text": "She is open to contract work now, based in Casablanca (GMT+1), which overlaps European hours fully and US East mornings. Replies within 24 hours."
+      },
+      {
+        "keywords": ["backend", "java", "spring", "microservice", "python", "django"],
+        "text": "Backend is Java/Spring (Boot, Cloud, Eureka, Gateway, OpenFeign, Security), plus Python: Django apps and AWS Lambda@Edge functions in production."
+      },
+      {
+        "keywords": ["cloud", "aws", "devops", "ci", "cd", "pipeline"],
+        "text": "CI/CD with GitHub Workflows and Bitbucket Pipelines, AWS Amplify for GraphQL/REST data, and Lambda@Edge in Python. She also owns a shared UI library used across teams."
+      },
+      {
+        "keywords": ["language", "french", "english", "arabic", "toefl"],
+        "text": "Arabic native, English TOEFL 91, French C1. She leads client demos in English and French."
+      },
+      {
+        "keywords": ["certif", "aws certified", "azure", "watsonx"],
+        "text": "AWS Certified AI Practitioner (2026), watsonx Code Assistant (2024), IBM Technical Advocate Cloud v4 (2023), Azure Fundamentals (2023)."
+      },
+      {
+        "keywords": ["client", "nda", "airline", "travel"],
+        "text": "Her IBM work is for airline and travel clients; names are withheld under NDA. The work itself: booking flows, interactive maps, real-time status tracking, multilingual UI."
+      }
+    ]
+  },
+  "certs": {
+    "title": "Certifications",
+    "meta": "4 · VERIFIED",
+    "items": [
+      { "year": "2026", "name": "AWS Certified AI Practitioner", "org": "Amazon Web Services" },
+      { "year": "2024", "name": "watsonx Code Assistant", "org": "IBM" },
+      { "year": "2023", "name": "Technical Advocate Cloud v4", "org": "IBM" },
+      { "year": "2023", "name": "Azure Fundamentals", "org": "Microsoft" }
+    ]
+  },
+  "contact": {
+    "eyebrow": "FINAL CALL",
+    "title": "Let's talk about your product.",
+    "desc": "Tell me what's breaking or what you want to ship. I reply within a day, in English, French or Arabic.",
+    "cta": "View my Upwork profile",
+    "ctaHref": "#top",
+    "links": [
+      { "label": "EMAIL", "value": "hello@loubnatalha.dev", "href": "mailto:hello@loubnatalha.dev" },
+      { "label": "LINKEDIN", "value": "in/loubnatalha", "href": "https://linkedin.com/in/loubnatalha" },
+      { "label": "GITHUB", "value": "leriaetnasta", "href": "https://github.com/leriaetnasta" },
+      { "label": "DEV.TO", "value": "@leriaetnasta", "href": "https://dev.to/leriaetnasta" }
+    ]
+  },
+  "footer": { "brand": "LOUBNA TALHA", "meta": "SOFTWARE ENGINEER · CASABLANCA · GMT+1" }
+}

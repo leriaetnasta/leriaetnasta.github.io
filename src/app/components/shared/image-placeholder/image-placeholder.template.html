@@ -1,0 +1,179 @@
+<div class="image-placeholder" [class.is-warm]="warm()" [class.has-scene]="!!icon()">
+  @switch (icon()) {
+    @case ('plane') {
+      <svg class="image-placeholder-scene" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="ph-air-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" class="scene-grid-line"></path>
+          </pattern>
+          <radialGradient id="ph-air-fade" cx="0.5" cy="0.5" r="0.62">
+            <stop offset="0" stop-color="#FFFFFF" stop-opacity="1"></stop>
+            <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+          </radialGradient>
+          <mask id="ph-air-mask">
+            <rect width="600" height="340" fill="url(#ph-air-fade)"></rect>
+          </mask>
+        </defs>
+
+        <rect width="600" height="340" fill="url(#ph-air-grid)" mask="url(#ph-air-mask)"></rect>
+
+        <g class="scene-faint" fill="none">
+          <circle cx="130" cy="250" r="70" stroke-dasharray="2 6"></circle>
+          <circle cx="130" cy="250" r="140" stroke-dasharray="2 6"></circle>
+        </g>
+
+        <path class="scene-route" d="M130 250 Q300 40 455 190"></path>
+
+        @for (w of [{ x: 240.6, y: 150.6, l: 'WPT 01' }, { x: 347.8, y: 129.6, l: 'WPT 02' }]; track w.l) {
+          <rect class="scene-waypoint" [attr.x]="w.x - 4" [attr.y]="w.y - 4" width="8" height="8" rx="1.5" [attr.transform]="'rotate(45 ' + w.x + ' ' + w.y + ')'"></rect>
+          <text class="scene-label scene-label-sm" [attr.x]="w.x" [attr.y]="w.y + 20" text-anchor="middle">{{ w.l }}</text>
+        }
+
+        <circle class="scene-node" cx="130" cy="250" r="7"></circle>
+        <circle class="scene-node-core" cx="130" cy="250" r="2.5"></circle>
+        <text class="scene-label scene-label-strong" x="112" y="280">CMN</text>
+        <text class="scene-label scene-label-sm" x="112" y="296">33.57°N 7.59°W</text>
+
+        <circle class="scene-pulse" cx="455" cy="190" r="6"></circle>
+        <circle class="scene-arrival" cx="455" cy="190" r="5"></circle>
+        <text class="scene-label scene-label-accent" x="455" y="214" text-anchor="middle">ARRIVAL</text>
+
+        <g class="scene-fly" style="offset-path: path('M130 250 Q300 40 455 190')">
+          <path class="scene-plane" d="M24 0 C24 -2.4 21.75 -3.6 18 -3.6 L6 -3.6 L-6 -21 L-12 -21 L-5.25 -3.6 L-16.5 -3.6 L-21.75 -10.5 L-25.5 -10.5 L-22.8 0 L-25.5 10.5 L-21.75 10.5 L-16.5 3.6 L-5.25 3.6 L-12 21 L-6 21 L6 3.6 L18 3.6 C21.75 3.6 24 2.4 24 0 Z"></path>
+        </g>
+
+        <g transform="translate(440,84)">
+          <circle class="scene-dial" r="38"></circle>
+          <circle class="scene-ticks" r="33" stroke-dasharray="1 4.76"></circle>
+          <g class="scene-needle">
+            <circle r="26" fill="none"></circle>
+            <path class="scene-needle-north" d="M0 -26 L5 0 L0 4 L-5 0 Z"></path>
+            <path class="scene-needle-south" d="M0 26 L5 0 L0 -4 L-5 0 Z"></path>
+            <path class="scene-needle-side" d="M22 0 L0 4 L-4 0 L0 -4 Z"></path>
+            <path class="scene-needle-side" d="M-22 0 L0 4 L4 0 L0 -4 Z"></path>
+          </g>
+          <circle class="scene-node" r="3"></circle>
+          <text class="scene-label scene-label-sm" x="0" y="-44" text-anchor="middle">N</text>
+        </g>
+      </svg>
+    }
+    @case ('gauge') {
+      <svg class="image-placeholder-scene" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="ph-dash-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" class="scene-grid-line"></path>
+          </pattern>
+          <radialGradient id="ph-dash-fade" cx="0.5" cy="0.5" r="0.62">
+            <stop offset="0" stop-color="#FFFFFF" stop-opacity="1"></stop>
+            <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+          </radialGradient>
+          <mask id="ph-dash-mask">
+            <rect width="600" height="340" fill="url(#ph-dash-fade)"></rect>
+          </mask>
+          <linearGradient id="ph-dash-area" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" style="stop-color: var(--blue); stop-opacity: 0.22"></stop>
+            <stop offset="1" style="stop-color: var(--blue); stop-opacity: 0"></stop>
+          </linearGradient>
+          <filter id="ph-dash-shadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#0E1013" flood-opacity="0.12"></feDropShadow>
+          </filter>
+        </defs>
+
+        <rect width="600" height="340" fill="url(#ph-dash-grid)" mask="url(#ph-dash-mask)"></rect>
+
+        <rect class="scene-card" x="110" y="40" width="380" height="260" rx="18" filter="url(#ph-dash-shadow)"></rect>
+        <text class="scene-label" x="134" y="70">OPS CENTER · LIVE</text>
+        <circle class="scene-pulse" cx="466" cy="66" r="4"></circle>
+        <circle class="scene-arrival" cx="466" cy="66" r="3.5"></circle>
+        <line class="scene-divider" x1="110" y1="84" x2="490" y2="84"></line>
+
+        @for (k of [{ x: 134, w: 64, f: 72 }, { x: 250, w: 48, f: 54 }, { x: 366, w: 58, f: 80 }]; track k.x) {
+          <rect class="scene-bar-faint" [attr.x]="k.x" y="102" width="44" height="5" rx="2.5"></rect>
+          <rect class="scene-bar-strong" [attr.x]="k.x" y="114" [attr.width]="k.w" height="10" rx="3"></rect>
+          <rect class="scene-bar-faint" [attr.x]="k.x" y="134" width="90" height="3" rx="1.5"></rect>
+          <rect class="scene-bar-blue" [attr.x]="k.x" y="134" [attr.width]="k.f" height="3" rx="1.5"></rect>
+        }
+
+        @for (y of [190, 220, 250]; track y) {
+          <line class="scene-divider" x1="134" [attr.y1]="y" x2="318" [attr.y2]="y" stroke-dasharray="2 5"></line>
+        }
+        <path fill="url(#ph-dash-area)" d="M134 250 L160 238 L186 244 L212 214 L238 222 L264 192 L290 200 L318 178 L318 280 L134 280 Z"></path>
+        <path class="scene-line" d="M134 250 L160 238 L186 244 L212 214 L238 222 L264 192 L290 200 L318 178"></path>
+        <g class="scene-cursor" style="offset-path: path('M134 250 L160 238 L186 244 L212 214 L238 222 L264 192 L290 200 L318 178')">
+          <circle class="scene-node" r="5"></circle>
+        </g>
+
+        <circle class="scene-ticks" cx="404" cy="224" r="56" stroke-dasharray="1 4.86"></circle>
+        <path class="scene-arc-track" d="M371.5 256.5 A46 46 0 1 1 436.5 256.5"></path>
+        <path class="scene-arc" d="M371.5 256.5 A46 46 0 1 1 443.8 201"></path>
+        <g transform="translate(404,224) rotate(60)">
+          <g class="scene-needle">
+            <circle r="36" fill="none"></circle>
+            <path class="scene-needle-north" d="M0 -36 L3.5 0 L0 5 L-3.5 0 Z"></path>
+          </g>
+        </g>
+        <circle class="scene-node" cx="404" cy="224" r="4"></circle>
+      </svg>
+    }
+    @case ('energy') {
+      <svg class="image-placeholder-scene" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <pattern id="ph-en-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" class="scene-grid-line"></path>
+          </pattern>
+          <radialGradient id="ph-en-fade" cx="0.5" cy="0.5" r="0.62">
+            <stop offset="0" stop-color="#FFFFFF" stop-opacity="1"></stop>
+            <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+          </radialGradient>
+          <mask id="ph-en-mask">
+            <rect width="600" height="340" fill="url(#ph-en-fade)"></rect>
+          </mask>
+        </defs>
+
+        <rect width="600" height="340" fill="url(#ph-en-grid)" mask="url(#ph-en-mask)"></rect>
+
+        @for (f of flows; track f.d) {
+          <path class="scene-route scene-route-thin" [attr.d]="f.d"></path>
+          <g class="scene-packet" [style.offset-path]="f.offsetPath" [style.animation-delay]="f.delay">
+            <circle class="scene-node-core" r="3"></circle>
+          </g>
+        }
+
+        <g class="scene-icon">
+          <path d="M146 136 L148.5 84 M154 136 L151.5 84 M140 136 H160"></path>
+          <g transform="translate(150,80)">
+            <g class="scene-rotor">
+              <circle r="26" fill="none" stroke="none"></circle>
+              <path d="M0 0 C-2 -10 -1 -20 0 -26 C1.5 -20 2 -10 0 0"></path>
+              <path transform="rotate(120)" d="M0 0 C-2 -10 -1 -20 0 -26 C1.5 -20 2 -10 0 0"></path>
+              <path transform="rotate(240)" d="M0 0 C-2 -10 -1 -20 0 -26 C1.5 -20 2 -10 0 0"></path>
+            </g>
+          </g>
+          <circle class="scene-node" cx="150" cy="80" r="3"></circle>
+
+          <path d="M122 196 L132 170 L180 170 L170 196 Z M127 183 H175 M138 196 L148 170 M154 196 L164 170 M151 196 V206 M142 206 H160"></path>
+
+          <path d="M138 290 L146 238 L154 238 L162 290 M134 248 H166 M138 260 H162 M141 272 L159 284 M159 272 L141 284 M146 238 L150 230 L154 238"></path>
+        </g>
+
+        <g transform="translate(390,172)">
+          <g class="scene-bezel">
+            <circle class="scene-ticks" r="54" stroke-dasharray="1 4.65"></circle>
+            <path class="scene-tick-major" d="M0 -60 V-50 M0 50 V60 M-60 0 H-50 M50 0 H60"></path>
+          </g>
+          <circle class="scene-hub" r="42"></circle>
+          <circle class="scene-faint" r="32" fill="none"></circle>
+          <path class="scene-bolt" d="M4 -16 L-8 4 L1 4 L-4 18 L10 -4 L1 -4 Z"></path>
+          <text class="scene-label scene-label-sm" x="0" y="-66" text-anchor="middle">N</text>
+        </g>
+        <text class="scene-label" x="390" y="252" text-anchor="middle">ENERGY DATA HUB</text>
+
+        <path class="scene-route scene-route-thin" d="M436 172 H486"></path>
+        <path class="scene-chevron" d="M482 166 L490 172 L482 178"></path>
+      </svg>
+    }
+  }
+  @if (!icon()) {
+    <span class="image-placeholder-caption">{{ caption() }}</span>
+  }
+</div>

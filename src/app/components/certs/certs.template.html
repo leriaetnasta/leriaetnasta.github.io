@@ -1,0 +1,15 @@
+<section id="certs" class="section">
+  <div class="section-head">
+    <h2 class="section-title">{{ content().title }}</h2>
+    <span class="section-meta">{{ content().meta }}</span>
+  </div>
+  <div class="certs-grid">
+    @for (item of content().items; track item.name) {
+    <div class="card cert-card">
+      <span class="eyebrow" [class.eyebrow--red]="$first">{{ item.year }}</span>
+      <span class="cert-name">{{ item.name }}</span>
+      <span class="cert-org">{{ item.org }}</span>
+    </div>
+    }
+  </div>
+</section>

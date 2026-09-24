@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="card ask-banner">
+    <div class="ask-banner-copy">
+      <span class="eyebrow eyebrow--red">{{ content().bannerEyebrow }}</span>
+      <h3 class="ask-banner-title">{{ content().bannerTitle }}</h3>
+      <p class="ask-banner-desc">{{ content().bannerDesc }}</p>
+    </div>
+    <div class="ask-banner-actions">
+      <button class="btn-open-assistant" type="button" (click)="openAsk.emit()">
+        {{ content().openBtn }}
+      </button>
+    </div>
+  </div>
+</section>
+
+@if (open()) {
+<div class="drawer-overlay">
+  <div class="drawer-backdrop" (click)="closeAsk.emit()"></div>
+  <aside class="drawer ask-drawer">
+    <div class="ask-header">
+      <span class="ask-title-group">
+        <span class="eyebrow">{{ content().eyebrow }}</span>
+        <span class="ask-title">{{ content().title }}</span>
+      </span>
+      <button class="drawer-close" type="button" [attr.aria-label]="a11y().close" (click)="closeAsk.emit()">×</button>
+    </div>
+
+    <div class="ask-messages">
+      @for (message of messages(); track message.id) {
+      <div class="msg" [class.msg--you]="message.role === ChatRole.Visitor" [class.msg--bot]="message.role === ChatRole.Bot">
+        {{ message.text }}
+      </div>
+      }
+    </div>
+
+    <div class="ask-footer">
+      <div class="suggestions">
+        @for (prompt of content().suggestions; track prompt) {
+        <button class="suggestion-btn" type="button" (click)="send.emit(prompt)">{{ prompt }}</button>
+        }
+      </div>
+      <form class="ask-form" (submit)="onSubmit($event)">
+        <input
+          class="ask-input"
+          [value]="draft()"
+          (input)="onDraftInput($event)"
+          [placeholder]="content().placeholder"
+          [attr.aria-label]="content().placeholder"
+        />
+        <button class="ask-send" type="submit">{{ content().send }}</button>
+      </form>
+    </div>
+  </aside>
+</div>
+}

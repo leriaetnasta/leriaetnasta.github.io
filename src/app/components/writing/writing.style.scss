@@ -1,0 +1,137 @@
+@use 'mixins' as *;
+
+app-writing {
+  .writing-card {
+    margin-top: 22px;
+    overflow: hidden;
+  }
+
+  .writing-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 96px 92px;
+    gap: 14px;
+    padding: 14px 22px;
+    background: var(--bar);
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 10px;
+    @include mono-label;
+  }
+
+  .writing-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 96px 92px;
+    gap: 14px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    color: var(--ink);
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: var(--card-2);
+      color: var(--ink);
+    }
+  }
+
+  .writing-title-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  .writing-title {
+    font-family: Archivo, sans-serif;
+    font-weight: 600;
+    font-size: 16.5px;
+    letter-spacing: -0.02em;
+    text-wrap: pretty;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .article-tag {
+    font-size: 9.5px;
+    background: var(--tint);
+    color: var(--blue);
+    padding: 5px 8px;
+    border-radius: 5px;
+    @include mono-label;
+  }
+
+  .writing-meta {
+    font-size: 12.5px;
+    color: var(--muted);
+    @include mono-label;
+
+    &.writing-meta--right {
+      text-align: right;
+    }
+  }
+
+  .writing-footer {
+    padding: 18px 22px;
+    border-top: 1px solid var(--line);
+    text-align: right;
+  }
+
+  .darija-banner {
+    margin-top: 20px;
+    background: var(--bar);
+    color: #fff;
+    border-radius: 20px;
+    padding: clamp(22px, 3vw, 38px);
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: center;
+  }
+
+  .darija-copy {
+    display: grid;
+    gap: 12px;
+  }
+
+  .darija-title {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .darija-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 520px;
+  }
+
+  .darija-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: center;
+  }
+
+  .darija-tag {
+    font-size: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 7px 10px;
+    border-radius: 6px;
+    @include mono-label;
+  }
+
+  .darija-cta {
+    margin-top: 8px;
+    background: #fff;
+    color: #0B0C0E;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 999px;
+  }
+}

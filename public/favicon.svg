@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LT">
+  <!--
+    Transparent ground: the mark inks itself against the browser chrome.
+    Chrome, Firefox and Edge honour prefers-color-scheme inside an SVG favicon;
+    the .ico and .png fallbacks carry the dark tile instead.
+  -->
+  <style>
+    .mark { fill: #0E1013; }
+    @media (prefers-color-scheme: dark) {
+      .mark { fill: #F0F1F3; }
+    }
+  </style>
+  <g class="mark">
+    <rect x="9" y="12" width="7" height="40"/>
+    <rect x="9" y="45" width="21" height="7"/>
+    <rect x="33" y="12" width="22" height="7"/>
+    <rect x="40.5" y="12" width="7" height="40"/>
+  </g>
+</svg>

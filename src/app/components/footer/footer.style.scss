@@ -1,0 +1,45 @@
+@use 'mixins' as *;
+
+app-footer {
+  .site-footer {
+    margin-top: 74px;
+    background: var(--bar);
+    color: rgba(255, 255, 255, 0.74);
+  }
+
+  .footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 34px clamp(16px, 3vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-brand {
+    font-family: Archivo, sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .logo-dot {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+
+  .footer-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    @include mono-label;
+  }
+}
