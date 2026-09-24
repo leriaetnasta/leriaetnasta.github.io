@@ -4,7 +4,7 @@
  *
  *   node scripts/build-knowledge.mjs [outfile]
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
@@ -64,6 +64,32 @@ function docsFor(c) {
   return docs;
 }
 
+/**
+ * Markdown in knowledge/ becomes extra facts, one per `##` heading. Written in
+ * English only: the model answers in the visitor's language either way. Sections
+ * still holding TODO are skipped so the files can be filled in gradually.
+ */
+function docsFromMarkdown() {
+  const dir = resolve(ROOT, "knowledge");
+  if (!existsSync(dir)) return [];
+
+  const docs = [];
+  for (const file of readdirSync(dir).filter((f) => f.endsWith(".md") && f !== "README.md")) {
+    const source = readFileSync(resolve(dir, file), "utf8");
+    const area = file.replace(/\.md$/, "");
+    for (const chunk of source.split(/^## /m).slice(1)) {
+      const [heading, ...rest] = chunk.split("\n");
+      const body = rest.join(" ");
+      if (/TODO/.test(body)) continue;
+      const text = clean(body);
+      if (text.length < 40) continue;
+      const slug = clean(heading).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      docs.push({ id: `${area}.${slug}`, section: area, title: clean(heading), text });
+    }
+  }
+  return docs;
+}
+
 let version = "local";
 try {
   version = execSync("git rev-parse --short HEAD", { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] })
@@ -71,10 +97,11 @@ try {
     .trim();
 } catch {}
 
+const extra = docsFromMarkdown();
 const bundle = { version, generatedAt: new Date().toISOString(), locales: {} };
 for (const locale of LOCALES) {
   const content = JSON.parse(readFileSync(resolve(ROOT, `public/i18n/${locale}.json`), "utf8"));
-  bundle.locales[locale] = docsFor(content);
+  bundle.locales[locale] = [...docsFor(content), ...extra];
 }
 
 mkdirSync(dirname(OUT), { recursive: true });
@@ -84,4 +111,5 @@ for (const [locale, docs] of Object.entries(bundle.locales)) {
   const chars = docs.reduce((n, d) => n + d.text.length, 0);
   console.log(`${locale}: ${docs.length} docs, ${chars} chars (~${Math.round(chars / 4)} tokens)`);
 }
+console.log(`${extra.length} extra docs from knowledge/*.md`);
 console.log(`wrote ${OUT} @ ${version}`);
