@@ -42,7 +42,7 @@
     "ctaTutor": "Book a tutor",
     "ctaBlog": "Read my blog",
     "ctaTalk": "Let's talk",
-    "stats": ["3 YRS AT IBM", "ANGULAR 14 → 21", "SOLE MAINTAINER, 8+ PROD APPS", "20+ PUBLISHED ARTICLES"],
+    "stats": ["3 YRS AT IBM", "ANGULAR + TYPESCRIPT", "SOLE MAINTAINER, 8+ PROD APPS", "20+ PUBLISHED ARTICLES"],
     "imageCaption": "Drop a golden-hour photo: Moroccan coast or Atlas mountains"
   },
   "itinerary": {
@@ -110,7 +110,7 @@
       {
         "tags": ["ANGULAR", "NGRX", "GRAPHQL", "AWS AMPLIFY", "AWS LAMBDA"],
         "title": "Airline & travel web apps",
-        "desc": "Sole maintainer of multiple production Angular apps, carried from v14 to v18. Booking flows, deep linking, interactive maps, real-time status tracking, and a multilingual UI that switches language at runtime. State in NgRx/RxJS; data over GraphQL and REST via AWS Amplify.",
+        "desc": "Sole maintainer of multiple production Angular apps, kept current across major framework upgrades. Booking flows, deep linking, interactive maps, real-time status tracking, and a multilingual UI that switches language at runtime. State in NgRx/RxJS; data over GraphQL and REST via AWS Amplify.",
         "linkLabel": "See details >",
         "imageCaption": "abstract airline booking-flow mockup, boarding-pass motif",
         "icon": "plane"
@@ -308,6 +308,7 @@
     "noticeAgree": "Got it",
     "noticeContact": "Contact her directly",
     "download": "Download transcript",
+    "minimize": "Minimize",
     "expand": "Expand",
     "collapse": "Shrink",
     "transcriptTitle": "Conversation with Loubna's CV assistant",
@@ -321,7 +322,10 @@
     "restart": "Start a new chat",
     "eyebrow": "ASK ABOUT ME",
     "title": "CV assistant",
-    "greeting": "Ask me anything about Loubna's experience. I answer only from her CV and published posts.",
+    "greetingMorning": "Good morning!",
+    "greetingAfternoon": "Good afternoon!",
+    "greetingEvening": "Good evening!",
+    "greetingHelp": "How can I help you today?",
     "languageAsk": "Hi there. I can answer in English or French.\nBonjour. Je peux répondre en anglais ou en français.",
     "languageEn": "English",
     "languageFr": "Français",
@@ -332,10 +336,6 @@
     "send": "Send",
     "fallback": "That isn't in her CV or posts, so I won't guess. Send her the question directly. She replies within a day.",
     "answers": [
-      {
-        "keywords": ["angular", "version", "upgrade", "v14", "v18"],
-        "text": "She maintains production Angular apps at IBM and has carried them from v14 through v18, including the migration work that comes with each major version: standalone components, new control flow, and dependency churn."
-      },
       {
         "keywords": ["teach", "beginner", "tutor", "lesson", "student", "darija"],
         "text": "Yes. She teaches code reading, Java/Spring, Angular, Python and interview prep 1-on-1, mentors interns at IBM, and publishes a \"Java explained in Darija\" series aimed at beginners."

@@ -13,7 +13,7 @@
   </div>
 </section>
 
-@if (!open()) {
+@if (!open() || minimized()) {
 <button class="ask-launcher" type="button" [attr.aria-label]="content().launcher" (click)="openAsk.emit()">
   <span class="ask-launcher-mark" aria-hidden="true">
     <span class="ask-monogram">LT</span>
@@ -23,7 +23,7 @@
 </button>
 }
 
-@if (open()) {
+@if (open() && !minimized()) {
 <div class="ask-panel-wrap">
   <div class="ask-panel-backdrop" (click)="requestClose.emit()"></div>
   <aside class="ask-panel" [class.ask-panel--wide]="wide()" role="dialog" aria-modal="true" [attr.aria-label]="content().title">
@@ -36,6 +36,11 @@
         <button class="ask-tool" type="button" [attr.aria-label]="content().download" [attr.title]="content().download" (click)="download.emit()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"></path>
+          </svg>
+        </button>
+        <button class="ask-tool" type="button" [attr.aria-label]="content().minimize" [attr.title]="content().minimize" (click)="minimizeAsk.emit()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 12h12"></path>
           </svg>
         </button>
         <button
@@ -63,7 +68,7 @@
         <app-image-placeholder caption="" icon="plane" />
       </div>
       } @else {
-      @for (message of messages(); track message.id) {
+      @for (message of messages(); track message.id; let first = $first) {
       <div
         class="msg"
         [class.msg--you]="message.role === ChatRole.Visitor"
@@ -79,13 +84,29 @@
         {{ message.text }}@if (message.status === 'streaming') {<span class="msg-cursor" aria-hidden="true"></span>}
         }
       </div>
-      }
 
-      @if (choosingLanguage() && messages().length === 1) {
+      @if (first && (choosingLanguage() || selectedLanguage())) {
       <div class="ask-langs">
-        <button class="ask-lang" type="button" (click)="pickLanguage.emit('en')">{{ content().languageEn }}</button>
-        <button class="ask-lang" type="button" (click)="pickLanguage.emit('fr')">{{ content().languageFr }}</button>
+        <button
+          class="ask-lang"
+          type="button"
+          [class.ask-lang--selected]="selectedLanguage() === 'en'"
+          [disabled]="!choosingLanguage()"
+          (click)="pickLanguage.emit('en')"
+        >
+          {{ content().languageEn }}
+        </button>
+        <button
+          class="ask-lang"
+          type="button"
+          [class.ask-lang--selected]="selectedLanguage() === 'fr'"
+          [disabled]="!choosingLanguage()"
+          (click)="pickLanguage.emit('fr')"
+        >
+          {{ content().languageFr }}
+        </button>
       </div>
+      }
       }
       }
     </div>

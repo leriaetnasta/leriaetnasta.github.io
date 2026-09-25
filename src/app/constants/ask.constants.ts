@@ -38,4 +38,4 @@ export const ASK_TOKEN_MS = 18;
 /**
  * how long the opening illustration holds before the greeting lands
  */
-export const ASK_BOOT_MS = 950;
+export const ASK_BOOT_MS = 2200;
