@@ -248,6 +248,7 @@ export interface ContentAsk {
   noticeAgree: string;
   noticeContact: string;
   download: string;
+  minimize: string;
   expand: string;
   collapse: string;
   transcriptTitle: string;
@@ -261,7 +262,10 @@ export interface ContentAsk {
   restart: string;
   eyebrow: string;
   title: string;
-  greeting: string;
+  greetingMorning: string;
+  greetingAfternoon: string;
+  greetingEvening: string;
+  greetingHelp: string;
   languageAsk: string;
   languageEn: string;
   languageFr: string;

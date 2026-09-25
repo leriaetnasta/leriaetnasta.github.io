@@ -566,6 +566,32 @@ app-ask-pres {
     &:hover {
       background: var(--tint);
     }
+
+    // the picked language, filled in and kept in the transcript
+    &--selected {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    // once chosen the buttons are a record, not live controls
+    &:disabled {
+      cursor: default;
+    }
+
+    // the language that was not picked recedes but stays visible
+    &:disabled:not(.ask-lang--selected) {
+      color: var(--muted);
+      border-color: var(--line);
+    }
+
+    &:disabled:hover {
+      background: var(--card);
+    }
+
+    &--selected:disabled:hover {
+      background: var(--blue);
+    }
   }
 
   .msg {

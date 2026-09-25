@@ -1,18 +1,22 @@
 import knowledge from "./knowledge.json";
+import { pickProvider } from "./providers";
+import type { Env, Locale, Turn } from "./types";
 
-export interface Env {
-  AI: { run(model: string, options: Record<string, unknown>): Promise<ReadableStream> };
-  CHAT_LIMITER: { limit(options: { key: string }): Promise<{ success: boolean }> };
-}
-
-type Locale = "en" | "fr";
-type Turn = { role: "user" | "assistant"; content: string };
-
-const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-const ALLOWED_ORIGINS = ["https://leriaetnasta.github.io", "http://localhost:4200"];
+const ALLOWED_ORIGINS = ["https://leriaetnasta.github.io"];
 const MAX_TURNS = 6;
 const MAX_CHARS = 500;
-const MAX_TOKENS = 700;
+
+/** production host, plus any local dev origin whatever the port or host spelling */
+function isAllowedOrigin(origin: string | null): origin is string {
+  if (origin === null) return false;
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  try {
+    const { hostname } = new URL(origin);
+    return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
+  } catch {
+    return false;
+  }
+}
 
 const RULES: Record<Locale, string> = {
   en: [
@@ -73,50 +77,46 @@ function systemPrompt(locale: Locale): string {
   return `${RULES[locale]}\n\nFACTS:\n${facts}`;
 }
 
-/** Cloudflare streams `data: {"response":"..."}` lines; re-emit them in our own event shape. */
-function toEventStream(upstream: ReadableStream): ReadableStream {
-  const decoder = new TextDecoder();
+/** wrap a provider's text deltas in the event shape the browser reads */
+function toEventStream(deltas: AsyncGenerator<string>, providerId: string): ReadableStream {
   const encoder = new TextEncoder();
-  const send = (c: TransformStreamDefaultController<Uint8Array>, payload: unknown) =>
-    c.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
+  const send = (controller: ReadableStreamDefaultController, payload: unknown) =>
+    controller.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
 
-  let buffer = "";
-  let sentAnything = false;
-
-  const transform = new TransformStream<Uint8Array, Uint8Array>({
-    transform(chunk, controller) {
-      buffer += decoder.decode(chunk, { stream: true });
-      const lines = buffer.split("\n");
-      buffer = lines.pop() ?? "";
-
-      for (const line of lines) {
-        if (!line.startsWith("data:")) continue;
-        const payload = line.slice(5).trim();
-        if (!payload || payload === "[DONE]") continue;
-        try {
-          const { response } = JSON.parse(payload) as { response?: string };
-          if (response) {
-            sentAnything = true;
-            send(controller, { type: "token", text: response });
-          }
-        } catch {
-          // a partial JSON line: the next chunk completes it
+  return new ReadableStream({
+    async start(controller) {
+      let sentAnything = false;
+      try {
+        for await (const text of deltas) {
+          if (!text) continue;
+          sentAnything = true;
+          send(controller, { type: "token", text });
         }
+        if (sentAnything) {
+          send(controller, { type: "done", model: providerId, version: knowledge.version });
+        } else {
+          send(controller, { type: "error", code: "upstream_error" });
+        }
+      } catch (error) {
+        const message = String((error as Error)?.message ?? error);
+        const code = /quota|credit|balance|capacity/i.test(message)
+          ? "quota_exceeded"
+          : /rate/i.test(message)
+            ? "rate_limited"
+            : "upstream_error";
+        // the stream is already open, so the browser learns about this as an event
+        send(controller, { type: "error", code });
+      } finally {
+        controller.close();
       }
     },
-    flush(controller) {
-      if (sentAnything) send(controller, { type: "done", model: MODEL, version: knowledge.version });
-      else send(controller, { type: "error", code: "upstream_error" });
-    },
   });
-
-  return upstream.pipeThrough(transform);
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get("origin");
-    const allowed = origin !== null && ALLOWED_ORIGINS.includes(origin);
+    const allowed = isAllowedOrigin(origin);
     const url = new URL(request.url);
 
     if (request.method === "OPTIONS") {
@@ -138,15 +138,12 @@ export default {
     }
     if (!parsed) return fail("invalid_request", 400, origin);
 
-    try {
-      const upstream = await env.AI.run(MODEL, {
-        stream: true,
-        max_tokens: MAX_TOKENS,
-        temperature: 0.2,
-        messages: [{ role: "system", content: systemPrompt(parsed.locale) }, ...parsed.messages],
-      });
+    const provider = pickProvider(env);
 
-      return new Response(toEventStream(upstream), {
+    try {
+      const deltas = provider.stream(env, systemPrompt(parsed.locale), parsed.messages);
+
+      return new Response(toEventStream(deltas, provider.id), {
         headers: {
           "content-type": "text/event-stream",
           "cache-control": "no-store",

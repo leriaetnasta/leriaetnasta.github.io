@@ -38,6 +38,11 @@ export class AskPresComponent {
   public readonly open = input(false);
 
   /**
+   * the drawer is collapsed to the launcher, conversation kept
+   */
+  public readonly minimized = input(false);
+
+  /**
    * the conversation so far
    */
   public readonly messages = input<ChatMessage[]>([]);
@@ -73,9 +78,14 @@ export class AskPresComponent {
   public readonly booting = input(false);
 
   /**
-   * the language buttons are still offered
+   * the language buttons belong in the transcript
    */
   public readonly choosingLanguage = input(false);
+
+  /**
+   * the language the visitor picked, shown selected and locked in the transcript
+   */
+  public readonly selectedLanguage = input<Language | null>(null);
 
   /**
    * what the assistant is doing right now
@@ -91,6 +101,11 @@ export class AskPresComponent {
    * emits when the banner button opens the drawer
    */
   public readonly openAsk = output<void>();
+
+  /**
+   * emits when the panel should collapse to the launcher
+   */
+  public readonly minimizeAsk = output<void>();
 
   /**
    * emits when the panel should close for good

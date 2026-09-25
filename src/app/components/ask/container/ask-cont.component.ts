@@ -70,6 +70,11 @@ export class AskContComponent {
   public readonly open = this.ui.open;
 
   /**
+   * the panel is collapsed to the launcher, conversation kept
+   */
+  public readonly minimized = this.ui.minimized;
+
+  /**
    * the conversation, seeded with the greeting on first open
    */
   public readonly messages = signal<ChatMessage[]>([]);
@@ -105,9 +110,15 @@ export class AskContComponent {
   public readonly booting = signal(false);
 
   /**
-   * the visitor has not chosen a language for this conversation yet
+   * the language buttons are part of the transcript once offered
    */
   public readonly choosingLanguage = signal(true);
+
+  /**
+   * the language the visitor picked, kept so the choice stays shown as
+   * selected in the transcript instead of disappearing
+   */
+  public readonly selectedLanguage = signal<Language | null>(null);
 
   /**
    * what the assistant is doing while the visitor waits
@@ -130,20 +141,23 @@ export class AskContComponent {
   private idleTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {
-    // the greeting after a language switch waits for the new locale's copy
+    // the greeting after a language switch waits for the new locale's copy, so
+    // the assistant answers hello in the language the visitor just picked
     effect(() => {
-      const greeting = this.content().greeting;
+      // tracked, so this re-runs once the switched locale has loaded
+      this.content();
       untracked(() => {
         if (this.awaitingLocale()) {
           this.awaitingLocale.set(false);
-          this.append(ChatRole.Bot, greeting, 'done');
+          void this.greet();
         }
       });
     });
 
     // the header and side nav open the panel without going through openAsk().
     // Only the open flag is tracked: reading messages here would re-run this on
-    // every reply and pop the notice back up mid-conversation.
+    // every reply and pop the notice back up mid-conversation. The loader plays
+    // from the opening, behind the notice, so the panel is ready once dismissed.
     effect(() => {
       const open = this.open();
       untracked(() => {
@@ -165,6 +179,13 @@ export class AskContComponent {
    */
   public openAsk(): void {
     this.ui.openPanel();
+  }
+
+  /**
+   * collapse the panel to the launcher, leaving the conversation running
+   */
+  public minimizeAsk(): void {
+    this.ui.minimize();
   }
 
   /**
@@ -194,6 +215,7 @@ export class AskContComponent {
     this.ended.set(false);
     this.booting.set(false);
     this.choosingLanguage.set(true);
+    this.selectedLanguage.set(null);
     this.thinking.set('');
     this.messages.set([]);
     this.draft.set('');
@@ -215,6 +237,7 @@ export class AskContComponent {
     this.messages.set([]);
     this.draft.set('');
     this.choosingLanguage.set(true);
+    this.selectedLanguage.set(null);
     this.boot();
     this.restartIdleTimer();
   }
@@ -223,11 +246,15 @@ export class AskContComponent {
    * answer in the language the visitor picked, and reseed in that language
    */
   public pickLanguage(language: Language): void {
+    if (this.selectedLanguage()) {
+      return;
+    }
+    // the bilingual opener and the buttons stay put; the greeting lands beneath them
     this.choosingLanguage.set(false);
-    this.messages.set([]);
+    this.selectedLanguage.set(language);
 
     if (language === this.preferences.language()) {
-      this.append(ChatRole.Bot, this.content().greeting, 'done');
+      void this.greet();
       return;
     }
 
@@ -235,6 +262,48 @@ export class AskContComponent {
     this.awaitingLocale.set(true);
     this.preferences.setLanguage(language);
     this.contentService.loadContent(language);
+  }
+
+  /**
+   * open with a real greeting from the assistant, as if the visitor had said
+   * hello, so the opening line is generated rather than canned
+   */
+  private async greet(): Promise<void> {
+    const answerId = this.append(ChatRole.Bot, '', 'streaming');
+    const hello: ChatMessage[] = [
+      { id: 'ask-hello', role: ChatRole.Visitor, text: 'Hello', status: 'done' },
+    ];
+    this.busy.set(true);
+
+    try {
+      for await (const token of this.ask.stream(this.preferences.language(), hello)) {
+        this.appendToken(answerId, token);
+        await pause(ASK_TOKEN_MS);
+      }
+      this.settle(answerId, 'done');
+    } catch {
+      // the worker is unreachable, so greet from the local copy instead
+      this.replace(answerId, this.greetingText(), 'fallback');
+    } finally {
+      this.busy.set(false);
+      this.restartIdleTimer();
+    }
+  }
+
+  /**
+   * the offline greeting, warm and time-of-day aware, used only when the
+   * assistant cannot be reached
+   */
+  private greetingText(): string {
+    const content = this.content();
+    const hour = new Date().getHours();
+    const salutation =
+      hour < 12
+        ? content.greetingMorning
+        : hour < 18
+          ? content.greetingAfternoon
+          : content.greetingEvening;
+    return `${salutation}\n\n${content.greetingHelp}`;
   }
 
   /**

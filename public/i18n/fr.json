@@ -42,7 +42,7 @@
     "ctaTutor": "Réserver un cours",
     "ctaBlog": "Lire mon blog",
     "ctaTalk": "Discutons",
-    "stats": ["3 ANS CHEZ IBM", "ANGULAR 14 → 21", "SEULE MAINTENEUSE, 8+ APPS EN PROD", "20+ ARTICLES PUBLIÉS"],
+    "stats": ["3 ANS CHEZ IBM", "ANGULAR + TYPESCRIPT", "SEULE MAINTENEUSE, 8+ APPS EN PROD", "20+ ARTICLES PUBLIÉS"],
     "imageCaption": "Ajoutez une photo à l'heure dorée : côte marocaine ou Atlas"
   },
   "itinerary": {
@@ -110,7 +110,7 @@
       {
         "tags": ["ANGULAR", "NGRX", "GRAPHQL", "AWS AMPLIFY", "AWS LAMBDA"],
         "title": "Applications web aériennes & voyage",
-        "desc": "Seule mainteneuse de plusieurs applications Angular en production, migrées de la v14 à la v18. Parcours de réservation, deep linking, cartes interactives, suivi de statut en temps réel, et une interface multilingue qui change de langue à la volée. État géré en NgRx/RxJS ; données via GraphQL et REST avec AWS Amplify.",
+        "desc": "Seule mainteneuse de plusieurs applications Angular en production, maintenues à jour au fil des montées de version majeures du framework. Parcours de réservation, deep linking, cartes interactives, suivi de statut en temps réel, et une interface multilingue qui change de langue à la volée. État géré en NgRx/RxJS ; données via GraphQL et REST avec AWS Amplify.",
         "linkLabel": "Voir les détails >",
         "imageCaption": "maquette abstraite d'un parcours de réservation aérien, motif carte d'embarquement",
         "icon": "plane"
@@ -309,6 +309,7 @@
     "noticeAgree": "J'ai compris",
     "noticeContact": "La contacter directement",
     "download": "Télécharger la conversation",
+    "minimize": "Réduire en icône",
     "expand": "Agrandir",
     "collapse": "Réduire",
     "transcriptTitle": "Conversation avec l'assistant CV de Loubna",
@@ -322,7 +323,10 @@
     "restart": "Démarrer une nouvelle conversation",
     "eyebrow": "POSEZ-MOI UNE QUESTION",
     "title": "Assistant CV",
-    "greeting": "Posez-moi une question sur le parcours de Loubna. Je ne réponds qu'à partir de son CV et de ses articles publiés.",
+    "greetingMorning": "Bonjour !",
+    "greetingAfternoon": "Bonjour !",
+    "greetingEvening": "Bonsoir !",
+    "greetingHelp": "Comment puis-je vous aider aujourd'hui ?",
     "languageAsk": "Bonjour. Je peux répondre en français ou en anglais.\nHi there. I can answer in French or English.",
     "languageEn": "English",
     "languageFr": "Français",
@@ -337,10 +341,6 @@
     "send": "Envoyer",
     "fallback": "Ce n'est pas dans son CV ni dans ses articles, donc je ne vais pas inventer. Écrivez-lui directement. Elle répond en une journée.",
     "answers": [
-      {
-        "keywords": ["angular", "version", "migration", "v14", "v18"],
-        "text": "Elle maintient des applications Angular en production chez IBM et les a fait migrer de la v14 à la v18, avec le travail que chaque version majeure impose : composants standalone, nouveau control flow, et mise à jour des dépendances."
-      },
       {
         "keywords": ["enseign", "débutant", "cours", "tuteur", "étudiant", "darija"],
         "text": "Oui. Elle enseigne la lecture de code, Java/Spring, Angular, Python et la préparation aux entretiens en tête-à-tête, encadre des stagiaires chez IBM, et publie une série \"Java expliqué en darija\" destinée aux débutants."
