@@ -5,6 +5,8 @@ import type { Env, Locale, Turn } from "./types";
 const ALLOWED_ORIGINS = ["https://leriaetnasta.github.io"];
 const MAX_TURNS = 6;
 const MAX_CHARS = 500;
+/** earlier answers run up to ~250 words; keep enough of each for follow-up context */
+const MAX_ANSWER_CHARS = 2000;
 
 /** production host, plus any local dev origin whatever the port or host spelling */
 function isAllowedOrigin(origin: string | null): origin is string {
@@ -65,8 +67,11 @@ function parseBody(body: unknown): { locale: Locale; messages: Turn[] } | null {
     if (typeof m !== "object" || m === null) return null;
     const { role, content } = m as Record<string, unknown>;
     if (role !== "user" && role !== "assistant") return null;
-    if (typeof content !== "string" || !content.trim() || content.length > MAX_CHARS) return null;
-    turns.push({ role, content: content.trim() });
+    if (typeof content !== "string" || !content.trim()) return null;
+    // the cap guards what visitors type; the assistant's own answers come back in the
+    // history and are trimmed rather than rejected, or every follow-up would fail
+    if (role === "user" && content.length > MAX_CHARS) return null;
+    turns.push({ role, content: role === "user" ? content.trim() : content.trim().slice(0, MAX_ANSWER_CHARS) });
   }
   if (turns[turns.length - 1].role !== "user") return null;
   return { locale, messages: turns };
