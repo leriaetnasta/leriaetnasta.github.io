@@ -331,7 +331,7 @@
     "languageFr": "Français",
     "thinkingSearch": "Looking through her CV",
     "thinkingCompose": "Putting that together",
-    "suggestions": ["What has she shipped to production?", "How does she work with a team?", "Is she available for contract work?"],
+    "suggestions": ["What has she worked on or contributed to?", "How does she work with a team?", "Is she available for contract work?"],
     "placeholder": "Ask about her experience…",
     "send": "Send",
     "fallback": "That isn't in her CV or posts, so I won't guess. Send her the question directly. She replies within a day.",

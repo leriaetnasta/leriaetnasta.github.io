@@ -28,9 +28,6 @@ jobs:
       - run: npm ci
 
       - run: npx ng test --watch=false
-
-      # only <user>.github.io is served from the domain root; every other repo, including
-      # something like other.name.github.io, is served from /<repo>/
       - name: Build
         run: |
           REPO="${GITHUB_REPOSITORY#*/}"
