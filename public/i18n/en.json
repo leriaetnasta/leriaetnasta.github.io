@@ -135,7 +135,7 @@
   },
   "projects": {
     "title": "Side projects",
-    "meta": "OPEN SOURCE",
+    "meta": "LEARNING PROJECTS · CODE ON GITHUB",
     "items": [
       {
         "eyebrow": "MICROSERVICES",
@@ -346,7 +346,7 @@
       },
       {
         "keywords": ["backend", "java", "spring", "microservice", "python", "django"],
-        "text": "Backend is Java/Spring (Boot, Cloud, Eureka, Gateway, OpenFeign, Security), plus Python: Django apps and AWS Lambda@Edge functions in production."
+        "text": "At IBM her backend work is Node.js and Python: Lambdas behind API Gateway, a Node.js API on ECS Fargate, and AWS Lambda@Edge functions in production. Java/Spring (Boot, Cloud, Eureka, Gateway, OpenFeign, Security) and Django come from her studies and personal learning projects, whose code is on GitHub."
       },
       {
         "keywords": ["cloud", "aws", "devops", "ci", "cd", "pipeline"],

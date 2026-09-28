@@ -14,4 +14,9 @@ TODO: Same shape. What was hard about booking flows, deep linking, real-time sta
 TODO: Same shape.
 
 ## Side projects
-TODO: For each repo worth discussing: why you built it and what it taught you.
+My Mini Souq, OpenAI Q&A API, JWT Spring Security, Rojesty, Expense Tracker and EBanking are
+learning projects from her engineering studies and self-study. Each one was a way to work
+through a stack or a pattern hands-on: microservices with Spring Cloud, token-based auth with
+Spring Security, calling an LLM from a Java service, data visualisation with Django and pandas,
+and Angular clients talking to Java back ends. The code is public on GitHub. None of them was
+deployed or used in production, and they are not part of her professional work.

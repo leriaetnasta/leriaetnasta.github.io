@@ -36,9 +36,12 @@ function docsFor(c) {
       join(w.desc, w.tags.join(", ")));
   }
 
+  // side projects are school and self-study work: say so in every fact, in English like
+  // the knowledge/ files, so no answer can present them as shipped
+  const status = "Personal learning project from her studies and self-study. The code is on GitHub; it was never deployed or used in production";
   for (const p of c.projects.items) {
     add(`project.${p.code.toLowerCase()}`, "projects", p.title,
-      join(p.desc, p.tags.join(", "), p.links.map((l) => l.href).join(" ")));
+      join(status, p.desc, p.tags.join(", "), p.links.map((l) => l.href).join(" ")));
   }
 
   add("writing.posts", "writing", c.writing.title,
